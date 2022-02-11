@@ -1,0 +1,15 @@
+﻿@model EFTechlink.Model.MqcDataSummary
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <canvas id="myChart" width="400" height="400"></canvas>
+    <p> total good quality is @Model.TotalGoodQty</p>
+    <p> total Not Good quality is @Model.TotalNotGoodQty</p>
+    <p> total Rework quality is @Model.TotalGoodQty</p>
+</div>
+
