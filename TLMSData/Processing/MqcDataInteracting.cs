@@ -52,5 +52,50 @@ namespace TLMSData.Processing
                                 .Sum(d => (long.Parse(d.Data))),
             };
         }
+
+        public async Task<List<PQCMesData>> GetPqcData(DateTime dateTimeStart, DateTime dateTimeEnd)
+        {
+            var PqcDataTemp = this.dataContext.PqcmesData
+                                      .Take(100)
+                                      .Where(d => (d.InspectDateTime) >= dateTimeStart
+                                                && (d.InspectDateTime) <= dateTimeEnd)
+                                      .ToList();
+
+            return PqcDataTemp;
+        }
+
+        public async Task<PqcDataSummary> GetPqcDataSummary(DateTime dateTimeStart, DateTime dateTimeEnd)
+        {
+            var PqcDataTemp = this.dataContext.PqcmesData
+                                       .Take(100)
+                                       .Where(d => (d.InspectDateTime) >= dateTimeStart
+                                                 && (d.InspectDateTime) <= dateTimeEnd)
+                                       .ToList();
+            if ((PqcDataTemp is null) || PqcDataTemp.Count == 0)
+            {
+                return null;
+            }
+
+            return new PqcDataSummary()
+            {
+                Department = "MQC",
+                Factory = "A02",
+                Site = PqcDataTemp[0].Site,
+                Line = PqcDataTemp[0].Line,
+                Model = PqcDataTemp[0].Model,
+                Lot = PqcDataTemp[0].LotNumber,
+                DatetimeStart = dateTimeStart,
+                DateTimeEnd = dateTimeEnd,
+                TotalGoodQty = PqcDataTemp
+                                .Where(d => d.AttributeType == "OP")
+                                .Sum(d => (long)d.Quantity),
+                TotalNotGoodQty = PqcDataTemp
+                                .Where(d => d.AttributeType == "NG")
+                                .Sum(d => (long)d.Quantity),
+                TotalReworkQty = PqcDataTemp
+                                .Where(d => d.AttributeType == "RW")
+                                .Sum(d => (long)d.Quantity),
+            };
+        }
     }
 }

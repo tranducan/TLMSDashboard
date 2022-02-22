@@ -17,14 +17,15 @@ namespace EFTechlink.EFCore
         {
         }
 
-        public virtual DbSet<MQCRealtime> MErpmqcRealtimes { get; set; }
+        public virtual DbSet<MErpmqcRealtime> MErpmqcRealtimes { get; set; }
+        public virtual DbSet<PQCMesData> PqcmesData { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Data Source=FS-35686\\SQLEXPRESS;Initial Catalog=ERPSOFT;Integrated Security=SSPI;Application Name=DBGenerationCommand");
+                optionsBuilder.UseSqlServer("Data Source=DESKTOP-M6N0IBR\\SQLEXPRESS;Initial Catalog=ERPSOFT;Integrated Security=SSPI;Application Name=DBGenerationCommand");
             }
         }
 
@@ -32,7 +33,7 @@ namespace EFTechlink.EFCore
         {
             modelBuilder.HasAnnotation("Relational:Collation", "Chinese_PRC_CI_AS");
 
-            modelBuilder.Entity<MQCRealtime>(entity =>
+            modelBuilder.Entity<MErpmqcRealtime>(entity =>
             {
                 entity.HasNoKey();
 
@@ -103,6 +104,73 @@ namespace EFTechlink.EFCore
                     .IsRequired()
                     .HasMaxLength(128)
                     .HasColumnName("status");
+            });
+
+            modelBuilder.Entity<PQCMesData>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToTable("PQCMesData", "ProcessHistory");
+
+                entity.Property(e => e.Attribute)
+                    .IsRequired()
+                    .HasMaxLength(20);
+
+                entity.Property(e => e.AttributeType)
+                    .IsRequired()
+                    .HasMaxLength(20);
+
+                entity.Property(e => e.Flag).HasMaxLength(10);
+
+                entity.Property(e => e.InspectDateTime).HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.Inspector)
+                    .IsRequired()
+                    .HasMaxLength(20);
+
+                entity.Property(e => e.LastModifiedUser)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasDefaultValueSql("(suser_sname())");
+
+                entity.Property(e => e.LastTimeModified).HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.Line)
+                    .IsRequired()
+                    .HasMaxLength(20);
+
+                entity.Property(e => e.LotNumber)
+                    .IsRequired()
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.Model)
+                    .IsRequired()
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.Pocode)
+                    .IsRequired()
+                    .HasMaxLength(200)
+                    .HasColumnName("POCode");
+
+                entity.Property(e => e.PqcmesDataId)
+                    .ValueGeneratedOnAdd()
+                    .HasColumnName("PQCMesDataId");
+
+                entity.Property(e => e.Process)
+                    .IsRequired()
+                    .HasMaxLength(10);
+
+                entity.Property(e => e.Quantity).HasColumnType("decimal(6, 4)");
+
+                entity.Property(e => e.Site)
+                    .IsRequired()
+                    .HasMaxLength(20);
+
+                entity.Property(e => e.VersionNumber)
+                    .IsRequired()
+                    .IsRowVersion()
+                    .IsConcurrencyToken();
             });
 
             OnModelCreatingPartial(modelBuilder);

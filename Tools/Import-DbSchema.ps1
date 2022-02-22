@@ -3,7 +3,7 @@ param (
     # to re-generate the data model from. 
     [Parameter(Mandatory = $false)]
     [string]
-    $ConnectionString = "Data Source=FS-35686\SQLEXPRESS;Initial Catalog=ERPSOFT;Integrated Security=SSPI;Application Name=DBGenerationCommand",
+    $ConnectionString = "Data Source=DESKTOP-M6N0IBR\SQLEXPRESS;Initial Catalog=ERPSOFT;Integrated Security=SSPI;Application Name=DBGenerationCommand",
 
     # Specifies the location to write the output files to.
     [Parameter(Mandatory = $false)]
@@ -27,7 +27,8 @@ param (
 )
 
 $tables =
-    "dbo.m_ERPMQC_REALTIME"
+    "dbo.m_ERPMQC_REALTIME",
+    "ProcessHistory.PQCMesData"
     
 
 $commandArgs =
