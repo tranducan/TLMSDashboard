@@ -17,4 +17,22 @@
     <ProjectReference Include="..\TLMSData\TLMSData.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Remove="wwwroot\fonts\" />
+    <Content Remove="wwwroot\lib\chart.js\" />
+    <Content Remove="wwwroot\lib\fontawesome\" />
+    <Content Remove="wwwroot\lib\jquery.mCustomScrollbar\" />
+    <Content Remove="wwwroot\lib\popper\" />
+    <Content Remove="wwwroot\lib\solid\" />
+    <Content Remove="wwwroot\lib\vendor\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="wwwroot\fonts\" />
+    <Folder Include="wwwroot\lib\chart.js\" />
+    <Folder Include="wwwroot\lib\fontawesome\" />
+    <Folder Include="wwwroot\lib\jquery.mCustomScrollbar\" />
+    <Folder Include="wwwroot\lib\popper\" />
+    <Folder Include="wwwroot\lib\solid\" />
+    <Folder Include="wwwroot\lib\vendor\" />
+  </ItemGroup>
 </Project>

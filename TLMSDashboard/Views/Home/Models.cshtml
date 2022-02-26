@@ -1,0 +1,200 @@
+﻿@model EFTechlink.Model.MqcDataSummary
+
+@{
+    ViewData["Title"] = "Models Page";
+}
+
+
+
+<main>
+    <div class="jumbotron">
+        <h5 class="display-4">PQC production line dashboard</h5>
+        <p class="lead">
+            <a class="btn btn-primary btn-lg" href="#" role="button">Yield</a>
+            <a class="btn btn-success btn-lg" href="#" role="button">Throughput</a>
+        </p>
+    </div>
+
+    <div class="pqc-lines row">
+
+        <a href="#" class="col-lg-4 col-md-12 pqc-line">
+            <div class="card border-0 shadow p-3 mb-5 bg-white roundeds">
+                <div class="card-header">
+                    <div class="line-info">
+                        <span class="key">Line</span>
+                        <span class="value">1</span>
+                    </div>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <div class="line-info">
+                            <span class="key">Product</span>
+                            <span class="value">BFFCHR4383P</span>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="line-info">
+                            <span class="key">Output (pcs)</span>
+                            <span class="value">100</span>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="line-info">
+                            <span class="key">Not good (pcs)</span>
+                            <span class="value">1</span>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="line-info">
+                            <span class="key">Rework (pcs)</span>
+                            <span class="value">2</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </a>
+
+        <a href="#" class="col-lg-4 col-md-12  pqc-line">
+            <div class="card border-0 shadow p-3 mb-5 bg-white roundeds">
+                <div class="card-header">
+                    <div class="line-info">
+                        <span class="key">Line</span>
+                        <span class="value">2</span>
+                    </div>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <div class="line-info">
+                            <span class="key">Product</span>
+                            <span class="value">BFFCHR4383P</span>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="line-info">
+                            <span class="key">Output (pcs)</span>
+                            <span class="value">100</span>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="line-info">
+                            <span class="key">Not good (pcs)</span>
+                            <span class="value">1</span>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="line-info">
+                            <span class="key">Rework</span>
+                            <span class="value">2</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </a>
+
+        <a href="#" class="col-lg-4 col-md-12  pqc-line">
+            <div class="card border-0 shadow p-3 mb-5 bg-white roundeds">
+                <div class="card-header">
+                    <div class="line-info">
+                        <span class="key">Line</span>
+                        <span class="value">3</span>
+                    </div>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <div class="line-info">
+                            <span class="key">Product</span>
+                            <span class="value">BFFCHR4383P</span>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="line-info">
+                            <span class="key">Output (pcs)</span>
+                            <span class="value">100</span>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="line-info">
+                            <span class="key">Not good (pcs)</span>
+                            <span class="value">1</span>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="line-info">
+                            <span class="key">Rework (pcs)</span>
+                            <span class="value">2</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </a>
+
+    </div>
+
+    <div>
+        <h2 class="text-center">Model chart</h2>
+        <canvas id="myChart"></canvas>
+    </div>
+
+
+    <script>(function($) {
+        $(document).ready(function() {
+            var DATA_COUNT = 7;
+                var NUMBER_CFG = {count: DATA_COUNT, min: -100, max: 100};
+                var labels = Samples.utils.months({count: 7});
+                var data = {
+                    labels: labels,
+                    datasets: [
+                        {
+                        label: 'Dataset 1',
+                        data: Samples.utils.numbers(NUMBER_CFG),
+                        backgroundColor:Samples.utils.color(1),
+                        stack: 'Stack 0',
+                        },
+                        {
+                        label: 'Dataset 2',
+                        data: Samples.utils.numbers(NUMBER_CFG),
+                        backgroundColor: Samples.utils.color(2),
+                        stack: 'Stack 1',
+                        },
+                        {
+                        label: 'Dataset 3',
+                        data: Samples.utils.numbers(NUMBER_CFG),
+                        backgroundColor: Samples.utils.color(3),
+                        stack: 'Stack 2',
+                        },
+                    ]
+                };
+
+                var config = {
+                    type: 'bar',
+                    data: data,
+                    options: {
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: 'Chart.js Bar Chart - Stacked'
+                            },
+                        },
+                        responsive: true,
+                        interaction: {
+                            intersect: false,
+                        },
+                        scales: {
+                            x: {
+                                stacked: true,
+                            },
+                            y: {
+                                stacked: true
+                            },
+                        }
+                    }
+                };
+
+                const myChart = new Chart(
+                    document.getElementById('myChart'),
+                    config
+                );
+            } );
+
+        })(jQuery);</script>
+</main>

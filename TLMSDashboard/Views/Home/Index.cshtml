@@ -4,12 +4,111 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-    <canvas id="myChart" width="400" height="400"></canvas>
-    <p> total good quality is @Model.TotalGoodQty</p>
-    <p> total Not Good quality is @Model.TotalNotGoodQty</p>
-    <p> total Rework quality is @Model.TotalReworkQty</p>
+<!-- HEADER-->
+<div class="jumbotron">
+    <h5 class="display-4">PQC production line dashboard</h5>
+    <p class="lead">
+        <a class="btn btn-primary btn-lg" href="#" role="button">Yield</a>
+        <a class="btn btn-success btn-lg" href="#" role="button">Throughput</a>
+    </p>
+</div>
+
+
+<!-- LINES-->
+<div class="pqc-lines row">
+
+    <a href="#" class="col-lg-4 col-md-12 pqc-line">
+        <div class="card border-0 shadow p-3 mb-5 bg-white roundeds">
+            <div class="card-header">
+                <div class="line-info">
+                    <span class="key">Line</span>
+                    <span class="value">1</span>
+                </div>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <div class="line-info">
+                        <span class="key">Output (pcs)</span>
+                        <span class="value">100</span>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <div class="line-info">
+                        <span class="key">Not good (pcs)</span>
+                        <span class="value">1</span>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <div class="line-info">
+                        <span class="key">Rework (pcs)</span>
+                        <span class="value">2</span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </a>
+
+    <a href="#" class="col-lg-4 col-md-12  pqc-line">
+        <div class="card border-0 shadow p-3 mb-5 bg-white roundeds">
+            <div class="card-header">
+                <div class="line-info">
+                    <span class="key">Line</span>
+                    <span class="value">2</span>
+                </div>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <div class="line-info">
+                        <span class="key">Output (pcs)</span>
+                        <span class="value">100</span>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <div class="line-info">
+                        <span class="key">Not good (pcs)</span>
+                        <span class="value">1</span>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <div class="line-info">
+                        <span class="key">Rework (pcs)</span>
+                        <span class="value">2</span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </a>
+
+    <a href="#" class="col-lg-4 col-md-12  pqc-line">
+        <div class="card border-0 shadow p-3 mb-5 bg-white roundeds">
+            <div class="card-header">
+                <div class="line-info">
+                    <span class="key">Line</span>
+                    <span class="value">3</span>
+                </div>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <div class="line-info">
+                        <span class="key">Output (pcs)</span>
+                        <span class="value">100</span>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <div class="line-info">
+                        <span class="key">Not good (pcs)</span>
+                        <span class="value">1</span>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <div class="line-info">
+                        <span class="key">Rework (pcs)</span>
+                        <span class="value">2</span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </a>
+
 </div>
 

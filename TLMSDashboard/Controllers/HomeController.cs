@@ -57,10 +57,27 @@ namespace TLMSDashboard.Controllers
             return View(pqcDataSummary);
         }
 
+        public IActionResult Models()
+        {
+            DateTime dateTimeStart = new DateTime(2019, 12, 3, 0, 0, 0);
+            DateTime dateTimeEnd = DateTime.Now;
+
+            return View();
+        }
+
+        public IActionResult Activities()
+        {
+            DateTime dateTimeStart = new DateTime(2019, 12, 3, 0, 0, 0);
+            DateTime dateTimeEnd = DateTime.Now;
+
+            return View();
+        }
+
         public IActionResult Privacy()
         {
             return View();
         }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

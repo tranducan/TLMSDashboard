@@ -1,0 +1,144 @@
+﻿@model EFTechlink.Model.MqcDataSummary
+
+@{
+    ViewData["Title"] = "Activities Page";
+}
+
+
+
+<main>
+    <div class="jumbotron">
+        <h5 class="display-4">PQC production line dashboard</h5>
+        <p class="lead">
+            <a class="btn btn-primary btn-lg" href="#" role="button">Yield</a>
+            <a class="btn btn-success btn-lg" href="#" role="button">Throughput</a>
+        </p>
+    </div>
+
+
+    <div>
+        <h2 class="text-center">Model chart</h2>
+        <canvas id="myChart"></canvas>
+    </div>
+
+
+    <script>(function ($) {
+        $(document).ready(function () {
+            var DATA_COUNT = 7;
+            var NUMBER_CFG = { count: DATA_COUNT, min: -100, max: 100 };
+            var labels = Samples.utils.months({ count: 7 });
+            var data = {
+                labels: labels,
+                datasets: [
+                    {
+                        label: 'Dataset 1',
+                        data: Samples.utils.numbers(NUMBER_CFG),
+                        backgroundColor: Samples.utils.color(1),
+                        stack: 'Stack 0',
+                    },
+                    {
+                        label: 'Dataset 2',
+                        data: Samples.utils.numbers(NUMBER_CFG),
+                        backgroundColor: Samples.utils.color(2),
+                        stack: 'Stack 1',
+                    },
+                    {
+                        label: 'Dataset 3',
+                        data: Samples.utils.numbers(NUMBER_CFG),
+                        backgroundColor: Samples.utils.color(3),
+                        stack: 'Stack 2',
+                    },
+                ]
+            };
+
+            var config = {
+                type: 'bar',
+                data: data,
+                options: {
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Chart.js Bar Chart - Stacked'
+                        },
+                    },
+                    responsive: true,
+                    interaction: {
+                        intersect: false,
+                    },
+                    scales: {
+                        x: {
+                            stacked: true,
+                        },
+                        y: {
+                            stacked: true
+                        },
+                    }
+                }
+            };
+
+            const myChart = new Chart(
+                document.getElementById('myChart'),
+                config
+            );
+        });
+
+     })(jQuery);
+    </script>
+
+
+    <div class="mt-4">
+        <h2 class="text-center">Activity chart</h2>
+        <canvas id="myChart2"></canvas>
+    </div>
+
+
+    <script>
+        (function ($) {
+            $(document).ready(function () {
+                const DATA_COUNT = 7;
+                const NUMBER_CFG = { count: DATA_COUNT, min: -100, max: 100 };
+
+                var labels = Samples.utils.months({ count: 7 });
+                const data = {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'Dataset 1',
+                            data: Samples.utils.numbers(NUMBER_CFG),
+                            borderColor: Samples.utils.color(4),
+                            backgroundColor: Samples.utils.transparentize(Samples.utils.color(1), 0.5),
+                        },
+                        {
+                            label: 'Dataset 2',
+                            data: Samples.utils.numbers(NUMBER_CFG),
+                            borderColor: Samples.utils.color(2),
+                            backgroundColor: Samples.utils.transparentize(Samples.utils.color(3), 0.5),
+                        }
+                    ]
+                };
+
+                const config = {
+                    type: 'line',
+                    data: data,
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                position: 'top',
+                            },
+                            title: {
+                                display: true,
+                                text: 'Chart.js Line Chart'
+                            }
+                        }
+                    },
+                };
+
+                const myChart = new Chart(
+                    document.getElementById('myChart2'),
+                    config
+                );
+            });
+
+        })(jQuery);</script>
+</main>
