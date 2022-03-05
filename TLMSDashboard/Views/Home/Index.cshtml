@@ -17,98 +17,172 @@
 <!-- LINES-->
 <div class="pqc-lines row">
 
-    <a href="#" class="col-lg-4 col-md-12 pqc-line">
+    <a href="#" class="col-lg-6 col-md-12 pqc-line">
         <div class="card border-0 shadow p-3 mb-5 bg-white roundeds">
-            <div class="card-header">
-                <div class="line-info">
-                    <span class="key">Line</span>
-                    <span class="value">1</span>
+            <div class="pqc-line-head">
+                <h3>Line 1</h3>
+            </div>
+            <div class="pqc-line-model">
+                <p>NR.50210</p>
+            </div>
+            <div class="pqc-line-sumary">
+                <div class="row align-items-center">
+                    <div class="col-6">
+                        <div style="margin: 20px">
+                            <canvas id="myChart2"></canvas>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <h4 class="d-flex justify-content-between sumary-item">
+                            <span>Target</span>
+                            <span>3500<span class="pqc-unit">Units</span></span>
+                        </h4>
+
+                        <h4 class="d-flex justify-content-between sumary-item actual-item">
+                            <span>Actual</span>
+                            <span>1715<span class="pqc-unit">Units</span></span>
+                        </h4>
+
+                        <h4 class="d-flex justify-content-between sumary-item">
+                            <span>Open</span>
+                            <span>1785<span class="pqc-unit">Units</span></span>
+                        </h4>
+
+                    </div>
                 </div>
             </div>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item">
-                    <div class="line-info">
-                        <span class="key">Output (pcs)</span>
-                        <span class="value">100</span>
+            <div class="pqc-line-time-running">
+                <h4 class="d-flex justify-content-between">
+                    <span>Production Running</span>
+                    <span>2:29 <span class="hour-unit">H</span></span>
+                </h4>
+            </div>
+
+            <div class="pqc-line-quality">
+                <h3>Quality test</h3>
+                <div class="d-flex justify-content-between">
+                    <span class="head not-pass-value">370</span>
+                    <span class="head pass-value">1345</span>
+                </div>
+                <div class="pqc-progress">
+                    <div class="pqc-progress-bar">
+                        <div class="pqc-progress-bar-fill" style="width: 30%"></div>
                     </div>
-                </li>
-                <li class="list-group-item">
-                    <div class="line-info">
-                        <span class="key">Not good (pcs)</span>
-                        <span class="value">1</span>
-                    </div>
-                </li>
-                <li class="list-group-item">
-                    <div class="line-info">
-                        <span class="key">Rework (pcs)</span>
-                        <span class="value">2</span>
-                    </div>
-                </li>
-            </ul>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <span class="tail not-pass-key">Not passed</span>
+                    <span class="tail pass-key">Passed</span>
+                </div>
+            </div>
         </div>
     </a>
 
-    <a href="#" class="col-lg-4 col-md-12  pqc-line">
+    <a href="#" class="col-lg-6 col-md-12  pqc-line">
         <div class="card border-0 shadow p-3 mb-5 bg-white roundeds">
-            <div class="card-header">
-                <div class="line-info">
-                    <span class="key">Line</span>
-                    <span class="value">2</span>
+            <div class="pqc-line-head">
+                <h3>Line 1</h3>
+            </div>
+            <div class="pqc-line-model">
+                <p>NR.50210</p>
+            </div>
+            <div class="pqc-line-sumary">
+                <div class="row align-items-center">
+                    <div class="col-6">
+                        <div style="margin: 20px">
+                            <canvas id="myChart3"></canvas>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <h4 class="d-flex justify-content-between sumary-item">
+                            <span>Target</span>
+                            <span>3500<span class="pqc-unit">Units</span></span>
+                        </h4>
+
+                        <h4 class="d-flex justify-content-between sumary-item actual-item">
+                            <span>Actual</span>
+                            <span>1715<span class="pqc-unit">Units</span></span>
+                        </h4>
+
+                        <h4 class="d-flex justify-content-between sumary-item">
+                            <span>Open</span>
+                            <span>1785<span class="pqc-unit">Units</span></span>
+                        </h4>
+
+                    </div>
                 </div>
             </div>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item">
-                    <div class="line-info">
-                        <span class="key">Output (pcs)</span>
-                        <span class="value">100</span>
+            <div class="pqc-line-time-running">
+                <h4 class="d-flex justify-content-between">
+                    <span>Production Running</span>
+                    <span>2:29 <span class="hour-unit">H</span></span>
+                </h4>
+            </div>
+
+            <div class="pqc-line-quality">
+                <h3>Quality test</h3>
+                <div class="d-flex justify-content-between">
+                    <span class="head not-pass-value">370</span>
+                    <span class="head pass-value">1345</span>
+                </div>
+                <div class="pqc-progress">
+                    <div class="pqc-progress-bar">
+                        <div class="pqc-progress-bar-fill" style="width: 30%"></div>
                     </div>
-                </li>
-                <li class="list-group-item">
-                    <div class="line-info">
-                        <span class="key">Not good (pcs)</span>
-                        <span class="value">1</span>
-                    </div>
-                </li>
-                <li class="list-group-item">
-                    <div class="line-info">
-                        <span class="key">Rework (pcs)</span>
-                        <span class="value">2</span>
-                    </div>
-                </li>
-            </ul>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <span class="tail not-pass-key">Not passed</span>
+                    <span class="tail pass-key">Passed</span>
+                </div>
+            </div>
         </div>
     </a>
 
-    <a href="#" class="col-lg-4 col-md-12  pqc-line">
-        <div class="card border-0 shadow p-3 mb-5 bg-white roundeds">
-            <div class="card-header">
-                <div class="line-info">
-                    <span class="key">Line</span>
-                    <span class="value">3</span>
-                </div>
-            </div>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item">
-                    <div class="line-info">
-                        <span class="key">Output (pcs)</span>
-                        <span class="value">100</span>
-                    </div>
-                </li>
-                <li class="list-group-item">
-                    <div class="line-info">
-                        <span class="key">Not good (pcs)</span>
-                        <span class="value">1</span>
-                    </div>
-                </li>
-                <li class="list-group-item">
-                    <div class="line-info">
-                        <span class="key">Rework (pcs)</span>
-                        <span class="value">2</span>
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </a>
 
 </div>
 
+<script>const data = {
+  labels: [
+    'Red',
+    'Blue'
+  ],
+  datasets: [{
+    label: 'My First Dataset',
+    data: [40, 60],
+    backgroundColor: [
+      'rgb(255, 99, 132)',
+      'rgb(54, 162, 235)'
+    ],
+    hoverOffset: 4
+  }]
+};
+
+  const config = {
+    type: 'doughnut',
+    data: data,
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          display: false
+        },
+        tooltip: {
+          callbacks: {
+            afterLabel: function(context) {
+              return ['Actual', 'Total'][context.dataIndex]
+            },
+          }
+        }
+      }
+
+    },
+};
+
+const myChart = new Chart(
+  document.getElementById('myChart2'),
+  config
+);
+const myChart2 = new Chart(
+    document.getElementById('myChart3'),
+    config
+);
+</script>
