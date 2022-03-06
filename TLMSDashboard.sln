@@ -1,13 +1,18 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31229.75
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TLMSDashboard", "TLMSDashboard\TLMSDashboard.csproj", "{E89BA3A0-64B2-4EA6-B046-889E1BCF372E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EFTechlink", "EFTechlink\EFTechlink.csproj", "{45F29E55-6C5A-4006-9D97-02E60ABBEDA1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TLMSData", "TLMSData\TLMSData.csproj", "{9D60A68B-D1C0-498A-BDDA-55B1677B9B80}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TLMSData", "TLMSData\TLMSData.csproj", "{9D60A68B-D1C0-498A-BDDA-55B1677B9B80}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{4EA8F92A-9401-44C5-AE59-34C36D37990E}"
+	ProjectSection(SolutionItems) = preProject
+		ProcessHistory.GetPQCMesData.sql = ProcessHistory.GetPQCMesData.sql
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
