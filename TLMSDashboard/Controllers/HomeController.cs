@@ -19,6 +19,8 @@ namespace TLMSDashboard.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly IConfiguration _config;
         private IMqcDataInteracting mqcDataInteracting;
+        private IGetPQCData getPQCData;
+        private string ConnectionString;
 
         public HomeController(
             ILogger<HomeController> logger,
@@ -28,6 +30,8 @@ namespace TLMSDashboard.Controllers
             _logger = logger;
             _config = configuration;
             mqcDataInteracting = new MqcDataInteracting(context);
+            ConnectionString = configuration.GetConnectionString("DefaultConnection");
+            getPQCData = new GetPQCData(ConnectionString);
         }
 
         public IActionResult Index()
@@ -61,6 +65,7 @@ namespace TLMSDashboard.Controllers
         {
             DateTime dateTimeStart = new DateTime(2019, 12, 3, 0, 0, 0);
             DateTime dateTimeEnd = DateTime.Now;
+            var result = getPQCData.GetProductionLines(dateTimeStart, dateTimeEnd);
 
             return View();
         }
@@ -69,6 +74,8 @@ namespace TLMSDashboard.Controllers
         {
             DateTime dateTimeStart = new DateTime(2019, 12, 3, 0, 0, 0);
             DateTime dateTimeEnd = DateTime.Now;
+            string line = "L01";
+            var result = getPQCData.GetProductionRealtimes(line, dateTimeStart, dateTimeEnd);
 
             return View();
         }
