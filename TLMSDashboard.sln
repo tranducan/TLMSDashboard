@@ -12,6 +12,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{4EA8F92A-9401-44C5-AE59-34C36D37990E}"
 	ProjectSection(SolutionItems) = preProject
 		ProcessHistory.GetPQCMesData.sql = ProcessHistory.GetPQCMesData.sql
+		ProcessHistory.GetPQCMesDataFilterLine.sql = ProcessHistory.GetPQCMesDataFilterLine.sql
+		ProcessHistory.GetPQCMesDataRealtime.sql = ProcessHistory.GetPQCMesDataRealtime.sql
 	EndProjectSection
 EndProject
 Global

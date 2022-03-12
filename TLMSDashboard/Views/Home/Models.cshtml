@@ -1,11 +1,22 @@
-﻿@model EFTechlink.Model.MqcDataSummary
+﻿
+@model List<TLMSData.Models.ProductionLine>
 
 @{
-    ViewData["Title"] = "Models Page";
+     var Ouput = Newtonsoft.Json.JsonConvert.SerializeObject( Model);  
+    //foreach(var productionline  in Model)
+    //{
+    //    var output = productionline.Output;
+        
+    //    var Notgood = productionline.NotGood;
+    //    var Ouput = Newtonsoft.Json.JsonConvert.SerializeObject( Model);  
+   
+    //}
 }
 
 
-
+<script>
+    console.log(@Html.Raw(Ouput))
+</script>
 <main>
     <div class="jumbotron pcq-header">
         <h5 class="display-4">PQC production line dashboard</h5>
@@ -22,7 +33,70 @@
     </div>
 
     <div class="pqc-lines row">
+        @{
+            foreach(var productionline  in Model)
+            {
+                 <a href="#" class="col-lg-6 col-md-12 pqc-line">
+            <div class="card border-0 shadow p-3 mb-5 bg-white roundeds">
+                <div class="pqc-line-head">
+                    <h3>@productionline.Line</h3>
+                </div>
+                <div class="pqc-line-model">
+                    <p>@productionline.Product</p>
+                </div>
+                <div class="pqc-line-sumary">
+                    <div class="row align-items-center">
+                        <div class="col-6">
+                            <div style="margin: 20px">
+                                <canvas id="myChart2"></canvas>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <h4 class="d-flex justify-content-between sumary-item">
+                                <span>Target</span>
+                                <span>3500<span class="pqc-unit">Units</span></span>
+                            </h4>
 
+                            <h4 class="d-flex justify-content-between sumary-item actual-item">
+                                <span>Actual</span>
+                                <span>1715<span class="pqc-unit">Units</span></span>
+                            </h4>
+
+                            <h4 class="d-flex justify-content-between sumary-item">
+                                <span>Open</span>
+                                <span>1785<span class="pqc-unit">Units</span></span>
+                            </h4>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="pqc-line-time-running">
+                    <h4 class="d-flex justify-content-between">
+                        <span>Production Running</span>
+                        <span>2:29 <span class="hour-unit">H</span></span>
+                    </h4>
+                </div>
+
+                <div class="pqc-line-quality">
+                    <h3>Quality test</h3>
+                    <div class="d-flex justify-content-between">
+                        <span class="head not-pass-value">370</span>
+                        <span class="head pass-value">1345</span>
+                    </div>
+                    <div class="pqc-progress">
+                        <div class="pqc-progress-bar">
+                            <div class="pqc-progress-bar-fill" style="width: 30%"></div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <span class="tail not-pass-key">Not passed</span>
+                        <span class="tail pass-key">Passed</span>
+                    </div>
+                </div>
+            </div>
+        </a>
+            }
+        }
         <a href="#" class="col-lg-6 col-md-12 pqc-line">
             <div class="card border-0 shadow p-3 mb-5 bg-white roundeds">
                 <div class="pqc-line-head">

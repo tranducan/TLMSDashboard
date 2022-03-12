@@ -65,9 +65,9 @@ namespace TLMSDashboard.Controllers
         {
             DateTime dateTimeStart = new DateTime(2019, 12, 3, 0, 0, 0);
             DateTime dateTimeEnd = DateTime.Now;
-            var result = getPQCData.GetProductionLines(dateTimeStart, dateTimeEnd);
+            var result = getPQCData.GetProductionLines(dateTimeStart, dateTimeEnd).Result;
 
-            return View();
+            return View(result);
         }
 
         public IActionResult Activities()
