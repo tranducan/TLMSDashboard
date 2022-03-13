@@ -1,0 +1,42 @@
+﻿@model EFTechlink.Model.MqcDataSummary
+
+@{
+    ViewData["Title"] = "Settings Page";
+}
+
+<main>
+    <div class="card w-100 border-0 shadow-sm p-3 mb-5 bg-white rounded h-100">
+        <div class="c-body">
+            <form class="setting-form">
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <span id="ex6CurrentSliderValLabel">Reload every <strong><span id="ex6SliderVal">3</span></strong></span> <span>(mins)</span>
+
+                            </div>
+
+                            <div class="col-md-8">
+                                <input name="reload-time" id="ex6" class="w-100" type="text" data-slider-min="1" data-slider-max="20" data-slider-step="1" data-slider-value="3" />
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div class="form-group col-md-6">
+
+                    </div>
+                </div>
+
+                <div class="form-group row pt-4">
+                    <div class="col-sm-10">
+                        <button type="submit" class="btn btn-primary">Saving Settings</button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</main>
+
+

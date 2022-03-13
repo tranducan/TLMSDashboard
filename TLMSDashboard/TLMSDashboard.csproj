@@ -25,6 +25,7 @@
     <Content Remove="wwwroot\lib\popper\" />
     <Content Remove="wwwroot\lib\solid\" />
     <Content Remove="wwwroot\lib\vendor\" />
+    <Content Remove="wwwroot\lib\slider\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="wwwroot\fonts\" />
@@ -34,5 +35,6 @@
     <Folder Include="wwwroot\lib\popper\" />
     <Folder Include="wwwroot\lib\solid\" />
     <Folder Include="wwwroot\lib\vendor\" />
+    <Folder Include="wwwroot\lib\slider\" />
   </ItemGroup>
 </Project>
