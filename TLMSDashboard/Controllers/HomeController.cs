@@ -70,6 +70,15 @@ namespace TLMSDashboard.Controllers
             return View(result);
         }
 
+        public IActionResult ProductionInformation()
+        {
+            DateTime dateTimeStart = new DateTime(2019, 12, 3, 0, 0, 0);
+            DateTime dateTimeEnd = DateTime.Now;
+            var result = getPQCData.GetProductionInformation(dateTimeStart, dateTimeEnd).Result;
+
+            return View(result);
+        }
+
         public IActionResult Activities()
         {
             DateTime dateTimeStart = new DateTime(2019, 12, 3, 0, 0, 0);
@@ -84,7 +93,6 @@ namespace TLMSDashboard.Controllers
         {
             return View();
         }
-
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

@@ -6,6 +6,7 @@ using TLMSData.Interfacing;
 using TLMSData.Models;
 using EFTechlink.EFCore;
 using Microsoft.Data.SqlClient;
+using System.Linq;
 
 namespace TLMSData.Processing
 {
@@ -18,6 +19,50 @@ namespace TLMSData.Processing
         string connectionString)
         {
             this.ConnectionString = connectionString ?? throw new ArgumentNullException(nameof(connectionString));
+        }
+
+        public async Task<ProductionInformation> GetProductionInformation(DateTime startTime, DateTime endTime)
+        {
+            var listReturn = new List<ProductionLine>();
+            string SPName = "[ProcessHistory].[GetPQCMesData]";
+            using (var conn = new SqlConnection(ConnectionString))
+            using (var command = new SqlCommand(SPName, conn))
+            {
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@InspectStart", startTime.ToString());
+                command.Parameters.AddWithValue("@InspectEnd", endTime.ToString());
+                conn.Open();
+                using (SqlDataReader rdr = command.ExecuteReader())
+                {
+                    while (rdr.Read())
+                    {
+                        var productLine = new ProductionLine()
+                        {
+                            Line = (string)rdr["Line"],
+                            Product = (string)rdr["Product"],
+                            InspectStart = (DateTime)rdr["StartTime"],
+                            InspectEnd = (DateTime)rdr["EndTime"],
+                            Output = (decimal)rdr["OPQty"],
+                            NotGood = (decimal)rdr["NGQty"],
+                            Rework = (decimal)rdr["RWQty"],
+                            Actual = (decimal)rdr["OPQty"] + (decimal)rdr["NGQty"] + (decimal)rdr["RWQty"],
+                            ProductionRunning = (DateTime)rdr["EndTime"] - (DateTime)rdr["EndTime"],
+
+                        };
+                        listReturn.Add(productLine);
+                    }
+                }
+            }
+
+            ProductionPerformance performance = new ProductionPerformance();
+            performance.Throughput = (int)listReturn.Sum(d => d.Output);
+            performance.Yield = (double)Math.Round(listReturn.Sum(d => d.Output) / listReturn.Sum(d => d.Actual), 2) * 100;
+
+            return new ProductionInformation()
+            {
+                productionLines = listReturn,
+                performance = performance,
+            };
         }
 
         public async Task<List<ProductionLine>> GetProductionLines(DateTime StartTime, DateTime EndTime)

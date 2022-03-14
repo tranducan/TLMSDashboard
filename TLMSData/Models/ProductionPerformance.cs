@@ -8,6 +8,6 @@ namespace TLMSData.Models
     {
         public double Yield { get; set; }
 
-        public double Throughput { get; set; }
+        public int Throughput { get; set; }
     }
 }
