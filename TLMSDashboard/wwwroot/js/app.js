@@ -1,3 +1,4 @@
+var src = window.autocompleteData;
 
 (function($) {
     $(document).ready(function() {
@@ -44,6 +45,20 @@
                     location.reload();
                 }, timeOut)
             }
+        }
+
+        // Auto complete search
+        
+        $('#autocomplete').autocomplete({
+            source: src,
+            onSelectItem: onSelectItem,
+            highlightClass: 'text-danger',
+            treshold: 2,
+        });
+
+        function onSelectItem(item, element) {
+            console.log(item);
+            $('#current-goal').val(item.value)
         }
 
 
