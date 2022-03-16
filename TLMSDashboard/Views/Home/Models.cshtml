@@ -1,23 +1,26 @@
 ﻿
 @model List<TLMSData.Models.ProductionLine>
 
+
 @{
-     var Ouput = Newtonsoft.Json.JsonConvert.SerializeObject( Model);  
+    var Ouput = Newtonsoft.Json.JsonConvert.SerializeObject( Model);
     //foreach(var productionline  in Model)
     //{
     //    var output = productionline.Output;
-        
+
     //    var Notgood = productionline.NotGood;
     //    var Ouput = Newtonsoft.Json.JsonConvert.SerializeObject( Model);  
-   
+
     //}
 }
 
 
 <script>
-    console.log(@Html.Raw(Ouput))
+    var productionLineData = @Html.Raw(Ouput);
+    console.log(productionLineData);
 </script>
-<main>
+
+<main class="reloadable">
     <div class="jumbotron pcq-header">
         <h5 class="display-4">PQC production line dashboard</h5>
         <div class="btn-group pcq-head w-40" role="group" aria-label="Basic example">
@@ -34,271 +37,168 @@
 
     <div class="pqc-lines row">
         @{
-            foreach(var productionline  in Model)
+            foreach (var productionline in Model)
             {
+                var Open = productionline.Target - productionline.Actual;
+                @*var Pass = productionline.Actual - productionline.NotGood - productionline.Rework;
+                var NotPass = productionline.Rework + productionline.NotGood;*@
+
+                var Pass = 40;
+                var NotPass = 6;
+                var PercentNotPassWithPass = Math.Round((float)NotPass / (NotPass + Pass) * 100);
+                var ProductionRunning = productionline.InspectEnd - productionline.InspectStart;
+
+
                  <a href="#" class="col-lg-6 col-md-12 pqc-line">
-            <div class="card border-0 shadow p-3 mb-5 bg-white roundeds">
-                <div class="pqc-line-head">
-                    <h3>@productionline.Line</h3>
-                </div>
-                <div class="pqc-line-model">
-                    <p>@productionline.Product</p>
-                </div>
-                <div class="pqc-line-sumary">
-                    <div class="row align-items-center">
-                        <div class="col-6">
-                            <div style="margin: 20px">
-                                <canvas id="myChart2"></canvas>
+                <div class="card border-0 shadow p-3 mb-5 bg-white roundeds">
+                    <div class="pqc-line-head">
+                        <h3>@productionline.Line</h3>
+                    </div>
+                    <div class="pqc-line-model">
+                        <p>@productionline.Product</p>
+                    </div>
+                    <div class="pqc-line-sumary">
+                        <div class="row align-items-center">
+                            <div class="col-6">
+                                <div style="margin: 20px">
+                                    <canvas id="@String.Format("line-chart-{0}-{1}", productionline.Line, productionline.Product)"></canvas>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <h4 class="d-flex justify-content-between sumary-item">
+                                    <span>Target</span>
+                                    <span>@productionline.Target<span class="pqc-unit">Units</span></span>
+                                </h4>
+
+                                <h4 class="d-flex justify-content-between sumary-item actual-item">
+                                    <span>Actual</span>
+                                    <span>@productionline.Actual<span class="pqc-unit">Units</span></span>
+                                </h4>
+
+                                <h4 class="d-flex justify-content-between sumary-item">
+                                    <span>Open</span>
+                                    <span>@Open<span class="pqc-unit">Units</span></span>
+                                </h4>
+
                             </div>
                         </div>
-                        <div class="col-6">
-                            <h4 class="d-flex justify-content-between sumary-item">
-                                <span>Target</span>
-                                <span>3500<span class="pqc-unit">Units</span></span>
-                            </h4>
+                    </div>
+                    <div class="pqc-line-time-running">
+                        <h4 class="d-flex justify-content-between">
+                            <span>Production Running</span>
+                            <span>@productionline.ProductionRunning <span class="hour-unit">H</span></span>
+                        </h4>
+                    </div>
 
-                            <h4 class="d-flex justify-content-between sumary-item actual-item">
-                                <span>Actual</span>
-                                <span>1715<span class="pqc-unit">Units</span></span>
-                            </h4>
-
-                            <h4 class="d-flex justify-content-between sumary-item">
-                                <span>Open</span>
-                                <span>1785<span class="pqc-unit">Units</span></span>
-                            </h4>
-
+                    <div class="pqc-line-quality">
+                        <h3>Quality test</h3>
+                        <div class="d-flex justify-content-between">
+                            <span class="head not-pass-value">@NotPass</span>
+                            <span class="head pass-value">@Pass</span>
+                        </div>
+                        <div class="pqc-progress">
+                            <div class="pqc-progress-bar">
+                                <div class="pqc-progress-bar-fill" style="width: @String.Format("{0}%", PercentNotPassWithPass)"></div>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <span class="tail not-pass-key">Not passed</span>
+                            <span class="tail pass-key">Passed</span>
                         </div>
                     </div>
                 </div>
-                <div class="pqc-line-time-running">
-                    <h4 class="d-flex justify-content-between">
-                        <span>Production Running</span>
-                        <span>2:29 <span class="hour-unit">H</span></span>
-                    </h4>
-                </div>
-
-                <div class="pqc-line-quality">
-                    <h3>Quality test</h3>
-                    <div class="d-flex justify-content-between">
-                        <span class="head not-pass-value">370</span>
-                        <span class="head pass-value">1345</span>
-                    </div>
-                    <div class="pqc-progress">
-                        <div class="pqc-progress-bar">
-                            <div class="pqc-progress-bar-fill" style="width: 30%"></div>
-                        </div>
-                    </div>
-                    <div class="d-flex justify-content-between">
-                        <span class="tail not-pass-key">Not passed</span>
-                        <span class="tail pass-key">Passed</span>
-                    </div>
-                </div>
-            </div>
-        </a>
+            </a>
             }
         }
-        <a href="#" class="col-lg-6 col-md-12 pqc-line">
-            <div class="card border-0 shadow p-3 mb-5 bg-white roundeds">
-                <div class="pqc-line-head">
-                    <h3>Line 1</h3>
-                </div>
-                <div class="pqc-line-model">
-                    <p>NR.50210</p>
-                </div>
-                <div class="pqc-line-sumary">
-                    <div class="row align-items-center">
-                        <div class="col-6">
-                            <div style="margin: 20px">
-                                <canvas id="myChart2"></canvas>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <h4 class="d-flex justify-content-between sumary-item">
-                                <span>Target</span>
-                                <span>3500<span class="pqc-unit">Units</span></span>
-                            </h4>
-
-                            <h4 class="d-flex justify-content-between sumary-item actual-item">
-                                <span>Actual</span>
-                                <span>1715<span class="pqc-unit">Units</span></span>
-                            </h4>
-
-                            <h4 class="d-flex justify-content-between sumary-item">
-                                <span>Open</span>
-                                <span>1785<span class="pqc-unit">Units</span></span>
-                            </h4>
-
-                        </div>
-                    </div>
-                </div>
-                <div class="pqc-line-time-running">
-                    <h4 class="d-flex justify-content-between">
-                        <span>Production Running</span>
-                        <span>2:29 <span class="hour-unit">H</span></span>
-                    </h4>
-                </div>
-
-                <div class="pqc-line-quality">
-                    <h3>Quality test</h3>
-                    <div class="d-flex justify-content-between">
-                        <span class="head not-pass-value">370</span>
-                        <span class="head pass-value">1345</span>
-                    </div>
-                    <div class="pqc-progress">
-                        <div class="pqc-progress-bar">
-                            <div class="pqc-progress-bar-fill" style="width: 30%"></div>
-                        </div>
-                    </div>
-                    <div class="d-flex justify-content-between">
-                        <span class="tail not-pass-key">Not passed</span>
-                        <span class="tail pass-key">Passed</span>
-                    </div>
-                </div>
-            </div>
-        </a>
-
-        <a href="#" class="col-lg-6 col-md-12  pqc-line">
-            <div class="card border-0 shadow p-3 mb-5 bg-white roundeds">
-                <div class="pqc-line-head">
-                    <h3>Line 1</h3>
-                </div>
-                <div class="pqc-line-model">
-                    <p>NR.50210</p>
-                </div>
-                <div class="pqc-line-sumary">
-                    <div class="row align-items-center">
-                        <div class="col-6">
-                            <div style="margin: 20px">
-                                <canvas id="myChart3"></canvas>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <h4 class="d-flex justify-content-between sumary-item">
-                                <span>Target</span>
-                                <span>3500<span class="pqc-unit">Units</span></span>
-                            </h4>
-
-                            <h4 class="d-flex justify-content-between sumary-item actual-item">
-                                <span>Actual</span>
-                                <span>1715<span class="pqc-unit">Units</span></span>
-                            </h4>
-
-                            <h4 class="d-flex justify-content-between sumary-item">
-                                <span>Open</span>
-                                <span>1785<span class="pqc-unit">Units</span></span>
-                            </h4>
-
-                        </div>
-                    </div>
-                </div>
-                <div class="pqc-line-time-running">
-                    <h4 class="d-flex justify-content-between">
-                        <span>Production Running</span>
-                        <span>2:29 <span class="hour-unit">H</span></span>
-                    </h4>
-                </div>
-
-                <div class="pqc-line-quality">
-                    <h3>Quality test</h3>
-                    <div class="d-flex justify-content-between">
-                        <span class="head not-pass-value">370</span>
-                        <span class="head pass-value">1345</span>
-                    </div>
-                    <div class="pqc-progress">
-                        <div class="pqc-progress-bar">
-                            <div class="pqc-progress-bar-fill" style="width: 30%"></div>
-                        </div>
-                    </div>
-                    <div class="d-flex justify-content-between">
-                        <span class="tail not-pass-key">Not passed</span>
-                        <span class="tail pass-key">Passed</span>
-                    </div>
-                </div>
-            </div>
-        </a>
-
 
     </div>
 
-    <script>const data = {
-            labels: [
-                'Red',
-                'Blue'
-            ],
-            datasets: [{
-                label: 'My First Dataset',
-                data: [40, 60],
-                backgroundColor: [
-                    'rgb(255, 99, 132)',
-                    'rgb(54, 162, 235)'
-                ],
-                hoverOffset: 4
-            }]
-        };
+    <script>
+        // SET UP LINE PCQ CHART
 
-        const config = {
-            type: 'doughnut',
-            data: data,
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        display: false
-                    },
-                    tooltip: {
-                        callbacks: {
-                            afterLabel: function (context) {
-                                return ['Actual', 'Total'][context.dataIndex]
-                            },
+        productionLineData.forEach(function (productionLine) {
+            const data = {
+                labels: [
+                    'Red',
+                    'Blue'
+                ],
+                datasets: [{
+                    label: 'My First Dataset',
+                    data: [productionLine.Actual, productionLine.Target],
+                    backgroundColor: [
+                        'rgb(255, 99, 132)',
+                        'rgb(54, 162, 235)'
+                    ],
+                    hoverOffset: 4
+                }]
+            };
+
+            const config = {
+                type: 'doughnut',
+                data: data,
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                afterLabel: function (context) {
+                                    return ['Actual', 'Total'][context.dataIndex]
+                                },
+                            }
                         }
                     }
-                }
 
-            },
-        };
+                },
+            };
 
-    const myChart = new Chart(
-        document.getElementById('myChart2'),
-        config
-    );
+            const query = `line-chart-${productionLine.Line}-${productionLine.Product}`;
+            new Chart(document.getElementById(query), config)
+        })
 
-        const myChart2 = new Chart(
-            document.getElementById('myChart3'),
-            config
-        );
+   
     </script>
 
     <div>
         <h2 class="text-center">Model chart</h2>
-        <canvas id="myChart"></canvas>
+        <canvas id="model-chart"></canvas>
     </div>
 
 
     <script>(function ($) {
+            // MODAL CHART
+
             $(document).ready(function () {
-                var DATA_COUNT = 7;
-                var NUMBER_CFG = { count: DATA_COUNT, min: -100, max: 100 };
-                var labels = Samples.utils.months({ count: 7 });
+
+                var DATA_COUNT = productionLineData.length;
+                var labels = productionLineData.map(function (data) {
+                    return `Line: ${data.Line} - Model: ${data.Product}`
+                })
+
+                const passData = productionLineData.map(function (data) {
+
+                    return 20
+                })
+                const notPassData = productionLineData.map(function (data) {
+                    return 8
+                })
+
                 var data = {
                     labels: labels,
                     datasets: [
                         {
-                            label: 'Dataset 1',
-                            data: Samples.utils.numbers(NUMBER_CFG),
+                            label: 'Pass',
+                            data: passData,
                             backgroundColor: Samples.utils.color(1),
                             stack: 'Stack 0',
                         },
                         {
-                            label: 'Dataset 2',
-                            data: Samples.utils.numbers(NUMBER_CFG),
+                            label: 'Not Pass',
+                            data: notPassData,
                             backgroundColor: Samples.utils.color(2),
                             stack: 'Stack 1',
-                        },
-                        {
-                            label: 'Dataset 3',
-                            data: Samples.utils.numbers(NUMBER_CFG),
-                            backgroundColor: Samples.utils.color(3),
-                            stack: 'Stack 2',
                         },
                     ]
                 };
@@ -310,7 +210,7 @@
                         plugins: {
                             title: {
                                 display: true,
-                                text: 'Chart.js Bar Chart - Stacked'
+                                text: 'Chart Model And Line'
                             },
                         },
                         responsive: true,
@@ -328,8 +228,8 @@
                     }
                 };
 
-                const myChart = new Chart(
-                    document.getElementById('myChart'),
+                new Chart(
+                    document.getElementById('model-chart'),
                     config
                 );
             });

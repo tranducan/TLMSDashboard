@@ -1,12 +1,19 @@
-﻿@model EFTechlink.Model.MqcDataSummary
+﻿@model List<TLMSData.Models.ProductionRealtime>
 
 @{
     ViewData["Title"] = "Activities Page";
+    var Ouput = Newtonsoft.Json.JsonConvert.SerializeObject(Model);
 }
 
 
 
-<main>
+<script>
+    var productionRealTime = @Html.Raw(Ouput);
+    console.log(productionRealTime);
+</script>
+
+
+<main class="reloadable">
     <div class="jumbotron pcq-header">
         <h5 class="display-4">PQC production line dashboard</h5>
         <div class="btn-group pcq-head w-40" role="group" aria-label="Basic example">
@@ -24,72 +31,71 @@
 
     <div>
         <h2 class="text-center">Model chart</h2>
-        <canvas id="myChart"></canvas>
+        <canvas id="chart-production-realtime"></canvas>
     </div>
 
 
     <script>(function ($) {
-        $(document).ready(function () {
-            var DATA_COUNT = 7;
-            var NUMBER_CFG = { count: DATA_COUNT, min: -100, max: 100 };
-            var labels = Samples.utils.months({ count: 7 });
-            var data = {
-                labels: labels,
-                datasets: [
-                    {
-                        label: 'Dataset 1',
-                        data: Samples.utils.numbers(NUMBER_CFG),
-                        backgroundColor: Samples.utils.color(1),
-                        stack: 'Stack 0',
-                    },
-                    {
-                        label: 'Dataset 2',
-                        data: Samples.utils.numbers(NUMBER_CFG),
-                        backgroundColor: Samples.utils.color(2),
-                        stack: 'Stack 1',
-                    },
-                    {
-                        label: 'Dataset 3',
-                        data: Samples.utils.numbers(NUMBER_CFG),
-                        backgroundColor: Samples.utils.color(3),
-                        stack: 'Stack 2',
-                    },
-                ]
-            };
+            $(document).ready(function () {
+                var DATA_COUNT = 7;
+                var NUMBER_CFG = { count: DATA_COUNT, min: -100, max: 100 };
+                var labels = Samples.utils.months({ count: 7 });
+                var data = {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'Dataset 1',
+                            data: Samples.utils.numbers(NUMBER_CFG),
+                            backgroundColor: Samples.utils.color(1),
+                            stack: 'Stack 0',
+                        },
+                        {
+                            label: 'Dataset 2',
+                            data: Samples.utils.numbers(NUMBER_CFG),
+                            backgroundColor: Samples.utils.color(2),
+                            stack: 'Stack 1',
+                        },
+                        {
+                            label: 'Dataset 3',
+                            data: Samples.utils.numbers(NUMBER_CFG),
+                            backgroundColor: Samples.utils.color(3),
+                            stack: 'Stack 2',
+                        },
+                    ]
+                };
 
-            var config = {
-                type: 'bar',
-                data: data,
-                options: {
-                    plugins: {
-                        title: {
-                            display: true,
-                            text: 'Chart.js Bar Chart - Stacked'
+                var config = {
+                    type: 'bar',
+                    data: data,
+                    options: {
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: 'Chart.js Bar Chart - Stacked'
+                            },
                         },
-                    },
-                    responsive: true,
-                    interaction: {
-                        intersect: false,
-                    },
-                    scales: {
-                        x: {
-                            stacked: true,
+                        responsive: true,
+                        interaction: {
+                            intersect: false,
                         },
-                        y: {
-                            stacked: true
-                        },
+                        scales: {
+                            x: {
+                                stacked: true,
+                            },
+                            y: {
+                                stacked: true
+                            },
+                        }
                     }
-                }
-            };
+                };
 
-            const myChart = new Chart(
-                document.getElementById('myChart'),
-                config
-            );
-        });
+                const myChart = new Chart(
+                    document.getElementById('chart-production-realtime'),
+                    config
+                );
+            });
 
-     })(jQuery);
-    </script>
+        })(jQuery);</script>
 
 
     <div class="mt-4">
@@ -98,8 +104,7 @@
     </div>
 
 
-    <script>
-        (function ($) {
+    <script>(function ($) {
             $(document).ready(function () {
                 const DATA_COUNT = 7;
                 const NUMBER_CFG = { count: DATA_COUNT, min: -100, max: 100 };
