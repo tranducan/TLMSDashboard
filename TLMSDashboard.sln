@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TLMSData", "TLMSData\TLMSDa
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{4EA8F92A-9401-44C5-AE59-34C36D37990E}"
 	ProjectSection(SolutionItems) = preProject
+		[ProcessHistory].[DailyPerformanceGoal].sql = [ProcessHistory].[DailyPerformanceGoal].sql
+		[ProcessHistory].[PQCMesData].sql = [ProcessHistory].[PQCMesData].sql
 		ProcessHistory.GetPQCMesData.sql = ProcessHistory.GetPQCMesData.sql
 		ProcessHistory.GetPQCMesDataFilterLine.sql = ProcessHistory.GetPQCMesDataFilterLine.sql
 		ProcessHistory.GetPQCMesDataRealtime.sql = ProcessHistory.GetPQCMesDataRealtime.sql

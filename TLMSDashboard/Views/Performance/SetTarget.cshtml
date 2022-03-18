@@ -1,0 +1,21 @@
+﻿@model TLMSData.Models.ProductTarget
+
+@{
+}
+<div class="container">
+  <form class="form-inline" method = "post">
+    <label for="ProductName" class="mb-2 mr-sm-2">Product:</label>
+    <input type="text" class="form-control mb-2 mr-sm-2" id="Product" placeholder="Enter Product" name="ProductName">
+     <label for="OutputTarget" class="mb-2 mr-sm-2">Output Target</label>
+    <input type="number" class="form-control mb-2 mr-sm-2" id="OutputTarget" placeholder="Enter Target of Output" name="OutputTarget"> 
+    <label for="ReworkTarget" class="mb-2 mr-sm-2">Rework target:</label>
+    <input type="number" class="form-control mb-2 mr-sm-2" id="ReworkTarget" placeholder="Enter Target of Rework" name="ReworkTarget">
+     <label for="NotGoodTarget" class="mb-2 mr-sm-2">Not Good Target</label>
+    <input type="number" class="form-control mb-2 mr-sm-2" id="NotGoodTarget" placeholder="Enter Target of Not Good" name="NotGoodTarget">
+     <label for="StartDate" class="mb-2 mr-sm-2">Start Date:</label>
+    <input type="datetime" class="form-control mb-2 mr-sm-2" id="StartDate" placeholder="Enter Start Date" name="StartDate"> 
+     <label for="EndDate" class="mb-2 mr-sm-2">End Date:</label>
+    <input type="datetime" class="form-control mb-2 mr-sm-2" id="EndDate" placeholder="Enter Start Date" name="EndDate">  
+    <button type="submit" class="btn btn-primary mb-2">Submit</button>
+  </form>
+</div>

@@ -10,6 +10,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TLMSData.Interfacing;
+using TLMSData.Processing;
 
 namespace TLMSDashboard
 {
@@ -27,7 +29,12 @@ namespace TLMSDashboard
         {
             services.AddControllersWithViews();
             string connection = Configuration.GetConnectionString("DefaultConnection");
-            services.AddDbContext<TLMSDataContext>(options => options.UseSqlServer(connection));
+            services.AddDbContext<TLMSDataContext>(options => options.UseSqlServer(connection), ServiceLifetime.Singleton);
+            services.AddSingleton<GetPQCData>();
+            services.AddTransient<TLMSDataContext>();
+            services.AddScoped<ISetDailyTarget, SetDailyTarget>();
+            services.AddScoped<IGetPQCData, GetPQCData>();
+            services.AddScoped<IMqcDataInteracting, MqcDataInteracting>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -12,9 +12,15 @@ namespace TLMSData.Models
 
         public string Product { get; set; }
 
-        public decimal Target { get; set; }
+        public decimal OPTarget { get; set; }
+
+        public decimal NGTarget { get; set; }
+
+        public decimal RWTarget { get; set; }
 
         public decimal Actual { get; set; }
+
+        public decimal OpenQty { get; set; }
 
         public decimal Output { get; set; }
 

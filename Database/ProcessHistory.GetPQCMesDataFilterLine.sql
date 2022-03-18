@@ -1,7 +1,6 @@
 ﻿USE [ERPSOFT]
 GO
 
-
 -- =============================================
 CREATE PROCEDURE [ProcessHistory].[GetPQCMesDataFilterLine]
 (	@Line VARCHAR(10),
@@ -20,6 +19,7 @@ BEGIN
 		SUM(__attrs.RW) as RWQty
 	FROM
 	(
+
 		SELECT 
 				MIN(InspectDateTime) as StartTime,
 				MAX(InspectDateTime) as EndTime,

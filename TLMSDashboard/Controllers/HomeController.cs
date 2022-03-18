@@ -31,16 +31,12 @@ namespace TLMSDashboard.Controllers
             _config = configuration;
             mqcDataInteracting = new MqcDataInteracting(context);
             ConnectionString = configuration.GetConnectionString("DefaultConnection");
-            getPQCData = new GetPQCData(ConnectionString);
+            getPQCData = new GetPQCData( context);
         }
 
         public IActionResult Index()
         {
-            DateTime dateTimeStart = new DateTime(2019, 12, 3, 0, 0, 0);
-            DateTime dateTimeEnd = new DateTime(2012, 12, 30, 0, 0, 0);
-            var mqcDataSummary = mqcDataInteracting.GetMqcDataSummary(dateTimeStart, dateTimeEnd).Result;
-
-            return View(mqcDataSummary);
+            return View();
         }
 
         public IActionResult PqcIndex()
@@ -70,11 +66,11 @@ namespace TLMSDashboard.Controllers
             return View(result);
         }
 
-        public IActionResult ProductionInformation()
+        public IActionResult PQCProduction()
         {
             DateTime dateTimeStart = new DateTime(2019, 12, 3, 0, 0, 0);
             DateTime dateTimeEnd = DateTime.Now;
-            var result = getPQCData.GetProductionInformation(dateTimeStart, dateTimeEnd).Result;
+            var result = getPQCData.GetProductionInformation(dateTimeStart, dateTimeEnd)?.Result;
 
             return View(result);
         }
@@ -84,12 +80,17 @@ namespace TLMSDashboard.Controllers
             DateTime dateTimeStart = new DateTime(2019, 12, 3, 0, 0, 0);
             DateTime dateTimeEnd = DateTime.Now;
             string line = "L01";
-            var result = getPQCData.GetProductionRealtimes(line, dateTimeStart, dateTimeEnd);
+            var result = getPQCData.GetProductionRealtimes(line, dateTimeStart, dateTimeEnd)?.Result;
 
-            return View();
+            return View(result);
         }
 
         public IActionResult Privacy()
+        {
+            return View();
+        }
+
+        public IActionResult Settings()
         {
             return View();
         }

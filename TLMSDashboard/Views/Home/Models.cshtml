@@ -39,7 +39,7 @@
         @{
             foreach (var productionline in Model)
             {
-                var Open = productionline.Target - productionline.Actual;
+                var Open = productionline.OPTarget - productionline.Actual;
                 @*var Pass = productionline.Actual - productionline.NotGood - productionline.Rework;
                 var NotPass = productionline.Rework + productionline.NotGood;*@
 
@@ -67,7 +67,7 @@
                             <div class="col-6">
                                 <h4 class="d-flex justify-content-between sumary-item">
                                     <span>Target</span>
-                                    <span>@productionline.Target<span class="pqc-unit">Units</span></span>
+                                    <span>@productionline.OPTarget<span class="pqc-unit">Units</span></span>
                                 </h4>
 
                                 <h4 class="d-flex justify-content-between sumary-item actual-item">

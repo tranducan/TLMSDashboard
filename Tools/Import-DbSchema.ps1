@@ -23,12 +23,11 @@ param (
     # Specifies the name of the context being generated.
     [Parameter(Mandatory = $false)]
     [string]
-    $ContextName = "TLMSDataContext"
+    $ContextName = "TLMSDataContext2"
 )
 
 $tables =
-    "dbo.m_ERPMQC_REALTIME",
-    "ProcessHistory.PQCMesData"
+    "ProcessHistory.DailyPerformanceGoal"
     
 
 $commandArgs =

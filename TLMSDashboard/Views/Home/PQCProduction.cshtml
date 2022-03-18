@@ -15,6 +15,7 @@
         <h5 class="display-4">PQC production line dashboard</h5>
         <div class="btn-group pcq-head w-40" role="group" aria-label="Basic example">
             <a class="btn bg-green-2" href="#">
+
                 <p>Yeild</p>
                 <p>@Model.performance.Yield</p>
             </a>
@@ -47,7 +48,7 @@
                         <div class="col-6">
                             <h4 class="d-flex justify-content-between sumary-item">
                                 <span>Target</span>
-                                <span>3500<span class="pqc-unit">Units</span></span>
+                                <span>@productionline.OPTarget<span class="pqc-unit">Units</span></span>
                             </h4>
 
                             <h4 class="d-flex justify-content-between sumary-item actual-item">
@@ -57,7 +58,7 @@
 
                             <h4 class="d-flex justify-content-between sumary-item">
                                 <span>Open</span>
-                                <span>1785<span class="pqc-unit">Units</span></span>
+                                <span>@productionline.OpenQty <span class="pqc-unit">Units</span></span>
                             </h4>
 
                         </div>
@@ -66,7 +67,7 @@
                 <div class="pqc-line-time-running">
                     <h4 class="d-flex justify-content-between">
                         <span>Production Running</span>
-                        <span>@productionline.ProductionRunning.ToString("HH:mm") <span class="hour-unit">H</span></span>
+                        <span>@productionline.ProductionRunning.ToString(@"hh\.mm") <span class="hour-unit">H</span></span>
                     </h4>
                 </div>
 
@@ -90,125 +91,6 @@
         </a>
             }
         }
-        <a href="#" class="col-lg-6 col-md-12 pqc-line">
-            <div class="card border-0 shadow p-3 mb-5 bg-white roundeds">
-                <div class="pqc-line-head">
-                    <h3>Line 1</h3>
-                </div>
-                <div class="pqc-line-model">
-                    <p>NR.50210</p>
-                </div>
-                <div class="pqc-line-sumary">
-                    <div class="row align-items-center">
-                        <div class="col-6">
-                            <div style="margin: 20px">
-                                <canvas id="myChart2"></canvas>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <h4 class="d-flex justify-content-between sumary-item">
-                                <span>Target</span>
-                                <span>3500<span class="pqc-unit">Units</span></span>
-                            </h4>
-
-                            <h4 class="d-flex justify-content-between sumary-item actual-item">
-                                <span>Actual</span>
-                                <span>1715<span class="pqc-unit">Units</span></span>
-                            </h4>
-
-                            <h4 class="d-flex justify-content-between sumary-item">
-                                <span>Open</span>
-                                <span>1785<span class="pqc-unit">Units</span></span>
-                            </h4>
-
-                        </div>
-                    </div>
-                </div>
-                <div class="pqc-line-time-running">
-                    <h4 class="d-flex justify-content-between">
-                        <span>Production Running</span>
-                        <span>2:29 <span class="hour-unit">H</span></span>
-                    </h4>
-                </div>
-
-                <div class="pqc-line-quality">
-                    <h3>Quality test</h3>
-                    <div class="d-flex justify-content-between">
-                        <span class="head not-pass-value">370</span>
-                        <span class="head pass-value">1345</span>
-                    </div>
-                    <div class="pqc-progress">
-                        <div class="pqc-progress-bar">
-                            <div class="pqc-progress-bar-fill" style="width: 30%"></div>
-                        </div>
-                    </div>
-                    <div class="d-flex justify-content-between">
-                        <span class="tail not-pass-key">Not passed</span>
-                        <span class="tail pass-key">Passed</span>
-                    </div>
-                </div>
-            </div>
-        </a>
-
-        <a href="#" class="col-lg-6 col-md-12  pqc-line">
-            <div class="card border-0 shadow p-3 mb-5 bg-white roundeds">
-                <div class="pqc-line-head">
-                    <h3>Line 1</h3>
-                </div>
-                <div class="pqc-line-model">
-                    <p>NR.50210</p>
-                </div>
-                <div class="pqc-line-sumary">
-                    <div class="row align-items-center">
-                        <div class="col-6">
-                            <div style="margin: 20px">
-                                <canvas id="myChart3"></canvas>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <h4 class="d-flex justify-content-between sumary-item">
-                                <span>Target</span>
-                                <span>3500<span class="pqc-unit">Units</span></span>
-                            </h4>
-
-                            <h4 class="d-flex justify-content-between sumary-item actual-item">
-                                <span>Actual</span>
-                                <span>1715<span class="pqc-unit">Units</span></span>
-                            </h4>
-
-                            <h4 class="d-flex justify-content-between sumary-item">
-                                <span>Open</span>
-                                <span>1785<span class="pqc-unit">Units</span></span>
-                            </h4>
-
-                        </div>
-                    </div>
-                </div>
-                <div class="pqc-line-time-running">
-                    <h4 class="d-flex justify-content-between">
-                        <span>Production Running</span>
-                        <span>2:29 <span class="hour-unit">H</span></span>
-                    </h4>
-                </div>
-
-                <div class="pqc-line-quality">
-                    <h3>Quality test</h3>
-                    <div class="d-flex justify-content-between">
-                        <span class="head not-pass-value">370</span>
-                        <span class="head pass-value">1345</span>
-                    </div>
-                    <div class="pqc-progress">
-                        <div class="pqc-progress-bar">
-                            <div class="pqc-progress-bar-fill" style="width: 30%"></div>
-                        </div>
-                    </div>
-                    <div class="d-flex justify-content-between">
-                        <span class="tail not-pass-key">Not passed</span>
-                        <span class="tail pass-key">Passed</span>
-                    </div>
-                </div>
-            </div>
-        </a>
 
 
     </div>

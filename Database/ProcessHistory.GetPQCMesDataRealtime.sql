@@ -1,7 +1,6 @@
 ﻿USE [ERPSOFT]
 GO
 
--- =============================================
 CREATE PROCEDURE [ProcessHistory].[GetPQCMesDataRealtime](
 	@Line VARCHAR(10),
 	@InspectStart DATETIME,
@@ -39,6 +38,7 @@ BEGIN
 		Model, 
 		CONVERT(DATE,InspectDateTime,101 ),DATEPART(HOUR, InspectDateTime),
 		AttributeType
+
 	) AS __piv
 	PIVOT
 	(

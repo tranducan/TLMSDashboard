@@ -3,6 +3,8 @@
 @{
     ViewData["Title"] = "Activities Page";
     var Ouput = Newtonsoft.Json.JsonConvert.SerializeObject(Model);
+    var throughput = Model.Sum(d=>d.PassedQty);
+    var yield = (double)Model.Sum(d => d.PassedQty) / (double) (Model.Sum(d => d.PassedQty)+ Model.Sum(d => d.NotPassedQty));
 }
 
 
@@ -18,12 +20,12 @@
         <h5 class="display-4">PQC production line dashboard</h5>
         <div class="btn-group pcq-head w-40" role="group" aria-label="Basic example">
             <a class="btn bg-green-2" href="#">
-                <p>Yeild</p>
-                <p>20</p>
+                <p>Yeild (%)</p>
+                <p>@Math.Round(yield*100,2)</p>
             </a>
             <a class="btn bg-blue-2" href="#">
-                <p>Throughput</p>
-                <p>20</p>
+                <p>Throughput (pcs)</p>
+                <p>@throughput</p>
             </a>
         </div>
     </div>

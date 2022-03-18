@@ -18,7 +18,10 @@ namespace EFTechlink.EFCore
         }
 
         public virtual DbSet<MErpmqcRealtime> MErpmqcRealtimes { get; set; }
+
         public virtual DbSet<PQCMesData> PqcmesData { get; set; }
+
+        public virtual DbSet<DailyPerformanceGoal> DailyPerformanceGoals { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -106,6 +109,35 @@ namespace EFTechlink.EFCore
                     .HasColumnName("status");
             });
 
+            modelBuilder.Entity<DailyPerformanceGoal>(entity =>
+            {
+                entity.HasKey(e => e.DailyPerformanceGoaId)
+                    .HasName("PK_DailyPerformanceGoal_DailyPerformanceGoalid");
+
+                entity.ToTable("DailyPerformanceGoal", "ProcessHistory");
+
+                entity.Property(e => e.Line).HasMaxLength(20);
+
+                entity.Property(e => e.Model)
+                    .IsRequired()
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.NotGoodTarget).HasColumnType("decimal(6, 0)");
+
+                entity.Property(e => e.OutputTarget).HasColumnType("decimal(6, 0)");
+
+                entity.Property(e => e.Process)
+                    .IsRequired()
+                    .HasMaxLength(10);
+
+                entity.Property(e => e.ReworkTarget).HasColumnType("decimal(6, 0)");
+
+                entity.Property(e => e.Site).HasMaxLength(20);
+
+                entity.Property(e => e.StartDate).HasDefaultValueSql("(getdate())");
+
+            });
+
             modelBuilder.Entity<PQCMesData>(entity =>
             {
                 entity.HasNoKey();
@@ -161,7 +193,7 @@ namespace EFTechlink.EFCore
                     .IsRequired()
                     .HasMaxLength(10);
 
-                entity.Property(e => e.Quantity).HasColumnType("decimal(6, 4)");
+                entity.Property(e => e.Quantity).HasColumnType("decimal(6, 0)");
 
                 entity.Property(e => e.Site)
                     .IsRequired()
