@@ -11,7 +11,7 @@
 
 <script>
     var productionRealTimes = @Html.Raw(Ouput);
-    console.log(productionRealTime);
+    console.log(productionRealTimes);
 </script>
 
 
@@ -109,30 +109,39 @@
 
     <div class="my-4">
         <h2 class="text-center">Activity chart</h2>
-        <canvas id="myChart2"></canvas>
+        <canvas id="chart-performance-realtime"></canvas>
     </div>
 
 
     <script>(function ($) {
             $(document).ready(function () {
-                const DATA_COUNT = 7;
-                const NUMBER_CFG = { count: DATA_COUNT, min: -100, max: 100 };
+                var DATA_COUNT = productionRealTimes.length;
+                var labels = productionRealTimes.map(function (data) {
+                    return `At: ${data.Hour}:00 - Running product: ${data.Product}`
+                })
 
-                var labels = Samples.utils.months({ count: 7 });
+                const throughputs = productionRealTimes.map(function (productionRealTime) {
+                    return productionRealTime.performance.Throughput
+                })
+
+                const yields = productionRealTimes.map(function (productionRealTime) {
+                    return productionRealTime.performance.Yield
+                })
+
                 const data = {
                     labels: labels,
                     datasets: [
                         {
-                            label: 'Dataset 1',
-                            data: Samples.utils.numbers(NUMBER_CFG),
+                            label: 'Throughput (%)',
+                            data: throughputs,
                             borderColor: Samples.utils.color(4),
-                            backgroundColor: Samples.utils.transparentize(Samples.utils.color(1), 0.5),
+                            backgroundColor: Samples.utils.color(4),
                         },
                         {
-                            label: 'Dataset 2',
-                            data: Samples.utils.numbers(NUMBER_CFG),
+                            label: 'Yield (%)',
+                            data: yields,
                             borderColor: Samples.utils.color(2),
-                            backgroundColor: Samples.utils.transparentize(Samples.utils.color(3), 0.5),
+                            backgroundColor: Samples.utils.color(2),
                         }
                     ]
                 };
@@ -154,8 +163,8 @@
                     },
                 };
 
-                const myChart = new Chart(
-                    document.getElementById('myChart2'),
+                new Chart(
+                    document.getElementById('chart-performance-realtime'),
                     config
                 );
             });
