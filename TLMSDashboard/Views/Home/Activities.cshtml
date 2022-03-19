@@ -1,7 +1,7 @@
 ﻿@model List<TLMSData.Models.ProductionRealtime>
 
 @{
-    ViewData["Title"] = "Activities Page";
+    ViewData["Title"] = "PCQRealtime Page";
     var Ouput = Newtonsoft.Json.JsonConvert.SerializeObject(Model);
     var throughput = Model.Sum(d=>d.PassedQty);
     var yield = (double)Model.Sum(d => d.PassedQty) / (double) (Model.Sum(d => d.PassedQty)+ Model.Sum(d => d.NotPassedQty));
@@ -10,18 +10,19 @@
 
 
 <script>
-    var productionRealTime = @Html.Raw(Ouput);
+    var productionRealTimes = @Html.Raw(Ouput);
     console.log(productionRealTime);
 </script>
 
 
 <main class="reloadable">
+    <h4 id="reload-countdown" class="text-right mb-2"></h4>
     <div class="jumbotron pcq-header">
         <h5 class="display-4">PQC production line dashboard</h5>
         <div class="btn-group pcq-head w-40" role="group" aria-label="Basic example">
             <a class="btn bg-green-2" href="#">
                 <p>Yeild (%)</p>
-                <p>@Math.Round(yield*100,2)</p>
+                <p>@Math.Round(yield * 100, 2)</p>
             </a>
             <a class="btn bg-blue-2" href="#">
                 <p>Throughput (pcs)</p>
@@ -31,38 +32,44 @@
     </div>
 
 
-    <div>
-        <h2 class="text-center">Model chart</h2>
+    <div class="mb-4">
+        <h2 class="text-center">PQC Realtime Chart</h2>
         <canvas id="chart-production-realtime"></canvas>
     </div>
 
 
     <script>(function ($) {
             $(document).ready(function () {
-                var DATA_COUNT = 7;
-                var NUMBER_CFG = { count: DATA_COUNT, min: -100, max: 100 };
-                var labels = Samples.utils.months({ count: 7 });
+                var DATA_COUNT = productionRealTimes.length;
+                var labels = productionRealTimes.map(function (data) {
+                    return `At: ${data.Hour}:00 - Running product: ${data.Product}`
+                })
+
+                const passData = productionRealTimes.map(function (productionRealTime) {
+
+                    return productionRealTime.PassedQty
+                });
+
+                const notPassData = productionRealTimes.map(function (productionRealTime) {
+
+                    return productionRealTime.NotPassedQty
+                });
+
                 var data = {
                     labels: labels,
                     datasets: [
                         {
-                            label: 'Dataset 1',
-                            data: Samples.utils.numbers(NUMBER_CFG),
+                            label: 'Pass',
+                            data: passData,
                             backgroundColor: Samples.utils.color(1),
                             stack: 'Stack 0',
                         },
                         {
-                            label: 'Dataset 2',
-                            data: Samples.utils.numbers(NUMBER_CFG),
+                            label: 'Not Pass',
+                            data: notPassData,
                             backgroundColor: Samples.utils.color(2),
                             stack: 'Stack 1',
-                        },
-                        {
-                            label: 'Dataset 3',
-                            data: Samples.utils.numbers(NUMBER_CFG),
-                            backgroundColor: Samples.utils.color(3),
-                            stack: 'Stack 2',
-                        },
+                        }
                     ]
                 };
 
@@ -73,7 +80,7 @@
                         plugins: {
                             title: {
                                 display: true,
-                                text: 'Chart.js Bar Chart - Stacked'
+                                text: 'PCQ Realtime Chart'
                             },
                         },
                         responsive: true,
@@ -100,7 +107,7 @@
         })(jQuery);</script>
 
 
-    <div class="mt-4">
+    <div class="my-4">
         <h2 class="text-center">Activity chart</h2>
         <canvas id="myChart2"></canvas>
     </div>

@@ -2,6 +2,11 @@ var src = window.autocompleteData;
 
 (function($) {
     $(document).ready(function() {
+      
+        // TOGGLE SIDEBAR
+
+        const reloadTimes = localStorage.getItem("reload-time");
+
         $("#sidebar").mCustomScrollbar({
             theme: "minimal"
         });
@@ -15,6 +20,13 @@ var src = window.autocompleteData;
 
         // With JQuery
         $("#ex6").slider();
+
+        if ($("#ex6") && reloadTimes) {
+            $("#ex6SliderVal").text(reloadTimes);
+            $("#ex6").attr("data-slider-value", reloadTimes);
+            $("#ex6").slider('setValue', reloadTimes)
+        }
+
         $("#ex6").on("slide", function (slideEvt) {
             $("#ex6SliderVal").text(slideEvt.value);
         });
@@ -31,21 +43,24 @@ var src = window.autocompleteData;
 
         })
 
-        const isReloadable = $(".reloadable");
+        // RELOAD SETTING
 
-        if (isReloadable.length > 0) {
-            const reloadTimes = localStorage.getItem("reload-time");
 
-            if (reloadTimes) {
-                const reloadInt = Number.parseInt(reloadTimes);
-                const timeOut = reloadInt * 60 * 1000;
+        
 
-                console.log(timeOut);
-                setTimeout(function () {
-                    location.reload();
-                }, timeOut)
-            }
-        }
+        //if (isReloadable.length > 0) {
+        //    const reloadTimes = localStorage.getItem("reload-time");
+
+        //    if (reloadTimes) {
+        //        const reloadInt = Number.parseInt(reloadTimes);
+        //        const timeOut = reloadInt * 60 * 1000;
+
+        //        console.log(timeOut);
+        //        setTimeout(function () {
+        //            location.reload();
+        //        }, timeOut)
+        //    }
+        //}
 
         // Auto complete search
         
@@ -60,6 +75,46 @@ var src = window.autocompleteData;
             console.log(item);
             $('#current-goal').val(item.value)
         }
+
+        // COUNTDOWN RELOAD
+        const isReloadable = $(".reloadable");
+        if (reloadTimes && isReloadable) {
+            const reloadInt = Number.parseInt(reloadTimes);
+            const timeOut = reloadInt * 60 * 1000;
+            const now = Date.now();
+            const nextReload = now + timeOut;
+
+            var countDownDate = new Date(nextReload).getTime();
+
+            var x = setInterval(function () {
+
+                var now = new Date().getTime();
+
+                var distance = countDownDate - now;
+
+                //var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                //var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+
+                var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                //document.getElementById("demo").innerHTML =
+                if (minutes >= 0 || seconds >= 0) {
+                    $("#reload-countdown").text(`Reload page after: ${minutes} minutes ${seconds} seconds`)
+                } 
+                
+
+                if (distance < 0) {
+                    clearInterval(x);
+                    location.reload();
+                }
+            }, 1000);
+        } else {
+            $("#reload-countdown").html("Please setting reloads time")
+        }
+
+
+        
 
 
     });

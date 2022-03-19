@@ -32,8 +32,8 @@ namespace TLMSData.Processing
             using (var command = new SqlCommand(SPName, conn))
             {
                 command.CommandType = System.Data.CommandType.StoredProcedure;
-                command.Parameters.AddWithValue("@InspectStart", startTime.ToString());
-                command.Parameters.AddWithValue("@InspectEnd", endTime.ToString());
+                command.Parameters.AddWithValue("@InspectStart", startTime.ToString("yyyy-MM-dd HH:mm:ss"));
+                command.Parameters.AddWithValue("@InspectEnd", endTime.ToString("yyyy-MM-dd HH:mm:ss"));
                 conn.Open();
                 using (SqlDataReader rdr = command.ExecuteReader())
 
