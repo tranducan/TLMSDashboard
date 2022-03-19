@@ -60,6 +60,7 @@ namespace TLMSData.Processing
                                                                  .Where(d => d.StartDate < DateTime.Now)
                                                                  .Where(d => d.EndDate == null || d.EndDate > DateTime.Now)
                                                                 .FirstOrDefault();
+
                         productLine.OPTarget = target.OutputTarget;
                         productLine.NGTarget = target.NotGoodTarget;
                         productLine.RWTarget = target.ReworkTarget;
@@ -72,7 +73,9 @@ namespace TLMSData.Processing
 
             ProductionPerformance performance = new ProductionPerformance();
             performance.Throughput = (int)listReturn.Sum(d => d.Output);
-            performance.Yield = (double)Math.Round(listReturn.Sum(d => d.Output) / listReturn.Sum(d => d.Actual), 2) * 100;
+            performance.Yield = listReturn.Sum(d => d.Actual) > 0
+                                ? (double)Math.Round(listReturn.Sum(d => d.Output) / listReturn.Sum(d => d.Actual), 2) * 100
+                                : 0;
 
             return new ProductionInformation()
             {
@@ -89,8 +92,8 @@ namespace TLMSData.Processing
             using (var command = new SqlCommand(SPName, conn))
             {
                 command.CommandType = System.Data.CommandType.StoredProcedure;
-                command.Parameters.AddWithValue("@InspectStart", StartTime.ToString());
-                command.Parameters.AddWithValue("@InspectEnd", EndTime.ToString());
+                command.Parameters.AddWithValue("@InspectStart", StartTime.ToString("yyyy-MM-dd HH:mm:ss"));
+                command.Parameters.AddWithValue("@InspectEnd", EndTime.ToString("yyyy-MM-dd HH:mm:ss"));
                 conn.Open();
                 using (SqlDataReader rdr = command.ExecuteReader())
                 {
@@ -104,7 +107,7 @@ namespace TLMSData.Processing
                             InspectEnd = (DateTime)rdr["EndTime"],
                             Output = (decimal)rdr["OPQty"],
                             NotGood = (decimal)rdr["NGQty"],
-                            Rework = (decimal)rdr["RWQty"]
+                            Rework = (decimal)rdr["RWQty"],
                         };
                         listReturn.Add(productLine);
                     }
@@ -123,8 +126,8 @@ namespace TLMSData.Processing
             {
                 command.CommandType = System.Data.CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@Line", LineFilter);
-                command.Parameters.AddWithValue("@InspectStart", StartTime.ToString());
-                command.Parameters.AddWithValue("@InspectEnd", EndTime.ToString());
+                command.Parameters.AddWithValue("@InspectStart", StartTime.ToString("yyyy-MM-dd HH:mm:ss"));
+                command.Parameters.AddWithValue("@InspectEnd", EndTime.ToString("yyyy-MM-dd HH:mm:ss"));
                 conn.Open();
                 using (SqlDataReader rdr = command.ExecuteReader())
                 {
@@ -138,7 +141,7 @@ namespace TLMSData.Processing
                             InspectEnd = (DateTime)rdr["EndTime"],
                             Output = (decimal)rdr["OPQty"],
                             NotGood = (decimal)rdr["NGQty"],
-                            Rework = (decimal)rdr["RWQty"]
+                            Rework = (decimal)rdr["RWQty"],
                         };
                         listReturn.Add(productLine);
                     }
@@ -157,8 +160,8 @@ namespace TLMSData.Processing
             {
                 command.CommandType = System.Data.CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@Line", LineFilter);
-                command.Parameters.AddWithValue("@InspectStart", StartTime.ToString());
-                command.Parameters.AddWithValue("@InspectEnd", EndTime.ToString());
+                command.Parameters.AddWithValue("@InspectStart", StartTime.ToString("yyyy-MM-dd HH:mm:ss"));
+                command.Parameters.AddWithValue("@InspectEnd", EndTime.ToString("yyyy-MM-dd HH:mm:ss"));
                 conn.Open();
                 using (SqlDataReader rdr = command.ExecuteReader())
                 {
@@ -173,6 +176,12 @@ namespace TLMSData.Processing
                             PassedQty = (decimal)rdr["Passed"],
                             NotPassedQty = (decimal)rdr["NotPassed"],
                         };
+
+                        realtime.performance.Throughput = (int)realtime.PassedQty;
+                        realtime.performance.Yield = (realtime.PassedQty + realtime.NotPassedQty) > 0
+                            ? Math.Round((double)realtime.PassedQty / ((double)(realtime.PassedQty + realtime.NotPassedQty)) * 100, 2)
+                            : 0;
+
                         listReturn.Add(realtime);
                     }
                 }

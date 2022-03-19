@@ -31,7 +31,7 @@ namespace TLMSDashboard.Controllers.Api
         }
 
         [HttpPost]
-        public IActionResult Insert([FromBody] CrudViewModel<DailyPerformanceGoal> payload)
+        public IActionResult Insert([FromBody]CrudViewModel<DailyPerformanceGoal> payload)
         {
             if (payload.value is null)
             {
@@ -46,7 +46,7 @@ namespace TLMSDashboard.Controllers.Api
         }
 
         [HttpPut]
-        public IActionResult Update([FromBody] CrudViewModel<DailyPerformanceGoal> payload)
+        public IActionResult Update([FromBody]CrudViewModel<DailyPerformanceGoal> payload)
         {
             if (payload.value is null)
             {

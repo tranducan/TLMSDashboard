@@ -21,6 +21,7 @@ namespace TLMSDashboard.Controllers
         private IMqcDataInteracting mqcDataInteracting;
         private IGetPQCData getPQCData;
         private string ConnectionString;
+        private DateTime setTimeStart = DateTime.MinValue;
 
         public HomeController(
             ILogger<HomeController> logger,
@@ -32,6 +33,20 @@ namespace TLMSDashboard.Controllers
             mqcDataInteracting = new MqcDataInteracting(context);
             ConnectionString = configuration.GetConnectionString("DefaultConnection");
             getPQCData = new GetPQCData( context);
+            if (Parameters.SetStaticValue.isDevEnvironment)
+            {
+                DateTime setStartDate = configuration.GetValue<DateTime>("StartTime:Date");
+                int setHour = configuration.GetValue<int>("StartTime:Hour");
+                int setMinute = configuration.GetValue<int>("StartTime:Minute");
+                setTimeStart = setStartDate.AddHours(setHour).AddMinutes(setMinute);
+            }
+            else
+            {
+                DateTime setStartDate = DateTime.Now.Date;
+                int setHour = configuration.GetValue<int>("StartTime:Hour");
+                int setMinute = configuration.GetValue<int>("StartTime:Minute");
+                setTimeStart = setStartDate.AddHours(setHour).AddMinutes(setMinute);
+            }
         }
 
         public IActionResult Index()
@@ -41,34 +56,34 @@ namespace TLMSDashboard.Controllers
 
         public IActionResult PqcIndex()
         {
-            DateTime dateTimeStart = new DateTime(2019, 12, 3, 0, 0, 0);
+            DateTime dateTimeStart = setTimeStart;
             DateTime dateTimeEnd = DateTime.Now;
-            var pqcDataSummary = mqcDataInteracting.GetPqcDataSummary(dateTimeStart, dateTimeEnd).Result;
+            var pqcDataSummary = mqcDataInteracting.GetPqcDataSummary(dateTimeStart, dateTimeEnd)?.Result;
 
             return View(pqcDataSummary);
         }
 
         public IActionResult PqcDataIndex()
         {
-            DateTime dateTimeStart = new DateTime(2019, 12, 3, 0, 0, 0);
+            DateTime dateTimeStart =  setTimeStart;
             DateTime dateTimeEnd = DateTime.Now;
-            var pqcDataSummary = mqcDataInteracting.GetPqcData(dateTimeStart, dateTimeEnd).Result;
+            var pqcDataSummary = mqcDataInteracting.GetPqcData(dateTimeStart, dateTimeEnd)?.Result;
 
             return View(pqcDataSummary);
         }
 
         public IActionResult Models()
         {
-            DateTime dateTimeStart = new DateTime(2019, 12, 3, 0, 0, 0);
+            DateTime dateTimeStart = setTimeStart;
             DateTime dateTimeEnd = DateTime.Now;
-            var result = getPQCData.GetProductionLines(dateTimeStart, dateTimeEnd).Result;
+            var result = getPQCData.GetProductionLines(dateTimeStart, dateTimeEnd)?.Result;
 
             return View(result);
         }
 
         public IActionResult PQCProduction()
         {
-            DateTime dateTimeStart = new DateTime(2019, 12, 3, 0, 0, 0);
+            DateTime dateTimeStart = setTimeStart;
             DateTime dateTimeEnd = DateTime.Now;
             var result = getPQCData.GetProductionInformation(dateTimeStart, dateTimeEnd)?.Result;
 
@@ -77,7 +92,7 @@ namespace TLMSDashboard.Controllers
 
         public IActionResult Activities()
         {
-            DateTime dateTimeStart = new DateTime(2019, 12, 3, 0, 0, 0);
+            DateTime dateTimeStart = setTimeStart;
             DateTime dateTimeEnd = DateTime.Now;
             string line = "L01";
             var result = getPQCData.GetProductionRealtimes(line, dateTimeStart, dateTimeEnd)?.Result;
