@@ -1,6 +1,7 @@
 ﻿using EFTechlink.EFCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -29,9 +30,14 @@ namespace TLMSDashboard.Controllers.Api
             return Ok(new {performanceGoals, count});
         }
 
-        [HttpPost("[action]")]
+        [HttpPost]
         public IActionResult Insert([FromBody]CrudViewModel<DailyPerformanceGoal> payload)
         {
+            if (payload.value is null)
+            {
+                throw new ArgumentNullException("payload received a null argument!");
+            }
+
             DailyPerformanceGoal goal = payload.value;
             dataContext.DailyPerformanceGoals.Add(goal);
             dataContext.SaveChanges();
@@ -39,9 +45,14 @@ namespace TLMSDashboard.Controllers.Api
             return Ok(goal);
         }
 
-        [HttpPost("[action]")]
+        [HttpPut]
         public IActionResult Update([FromBody]CrudViewModel<DailyPerformanceGoal> payload)
         {
+            if (payload.value is null)
+            {
+                throw new ArgumentNullException("payload received a null argument!");
+            }
+
             DailyPerformanceGoal goal = payload.value;
             dataContext.DailyPerformanceGoals.Update(goal);
             dataContext.SaveChanges();
@@ -49,11 +60,16 @@ namespace TLMSDashboard.Controllers.Api
             return Ok(goal);
         }
 
-        [HttpPost("[action]")]
+        [HttpDelete]
         public IActionResult Remove([FromBody] CrudViewModel<DailyPerformanceGoal> payload)
         {
+            if (payload.value is null)
+            {
+                throw new ArgumentNullException("payload received a null argument!");
+            }
+
             DailyPerformanceGoal goal = dataContext.DailyPerformanceGoals
-                .Where(x => x.DailyPerformanceGoaId == (int)payload.key)
+                .Where(x => x.Model == payload.value.Model)
                 .FirstOrDefault();
 
             dataContext.DailyPerformanceGoals.Remove(goal);

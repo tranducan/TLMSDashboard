@@ -43,12 +43,14 @@ namespace TLMSDashboard
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                Parameters.SetStaticValue.isDevEnvironment = true;
             }
             else
             {
                 app.UseExceptionHandler("/Home/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
+                Parameters.SetStaticValue.isDevEnvironment = false;
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();

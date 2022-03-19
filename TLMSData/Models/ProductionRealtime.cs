@@ -6,6 +6,11 @@ namespace TLMSData.Models
 {
     public class ProductionRealtime
     {
+        public ProductionRealtime()
+        {
+            performance = new ProductionPerformance();
+        }
+
         public DateTime Date { get; set; }
 
         public int Hour { get; set; }
@@ -17,6 +22,8 @@ namespace TLMSData.Models
         public decimal PassedQty { get; set; }
 
         public decimal NotPassedQty { get; set; }
+
+        public ProductionPerformance performance { get; set; }
 
     }
 }
