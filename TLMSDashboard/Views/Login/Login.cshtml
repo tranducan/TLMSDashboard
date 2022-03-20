@@ -1,0 +1,16 @@
+﻿@model LoginViewModel
+
+@{
+    ViewData["Title"] = "Log in";
+}
+<div class ="login-box">
+    <div class ="login-box-body">
+        <div class="login-logo">
+            <a href="/"></a>
+        </div>
+        <p class="login-box-msg">Sign in to start your session</p>
+        <form asp-route-returnurl ="@ViewData["ReturnUrl"]" method ="post">
+
+        </form>
+    </div>
+</div>

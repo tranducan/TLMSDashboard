@@ -90,11 +90,15 @@ namespace TLMSDashboard.Controllers
             return View(result);
         }
 
-        public IActionResult Activities()
+        public IActionResult Activities(string line)
         {
+            if (line is null)
+            {
+                throw new ArgumentNullException("input of line cannot be null");
+            }
+
             DateTime dateTimeStart = setTimeStart;
             DateTime dateTimeEnd = DateTime.Now;
-            string line = "L01";
             var result = getPQCData.GetProductionRealtimes(line, dateTimeStart, dateTimeEnd)?.Result;
 
             return View(result);

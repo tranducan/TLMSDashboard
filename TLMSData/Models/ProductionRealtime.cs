@@ -23,6 +23,12 @@ namespace TLMSData.Models
 
         public decimal NotPassedQty { get; set; }
 
+        public decimal Output { get; set; }
+
+        public decimal NotGood { get; set; }
+
+        public decimal Rework { get; set; }
+
         public ProductionPerformance performance { get; set; }
 
     }

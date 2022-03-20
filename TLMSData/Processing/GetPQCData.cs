@@ -173,6 +173,9 @@ namespace TLMSData.Processing
                             Product = (string)rdr["Product"],
                             Date = (DateTime)rdr["Date"],
                             Hour = (int)rdr["Hour"],
+                            Output = (decimal)rdr["OPQty"],
+                            NotGood = (decimal)rdr["NGQty"],
+                            Rework = (decimal)rdr["RWQty"],
                             PassedQty = (decimal)rdr["Passed"],
                             NotPassedQty = (decimal)rdr["NotPassed"],
                         };

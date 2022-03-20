@@ -59,6 +59,7 @@ namespace TLMSData.Processing
             var searchResult = dataContext.DailyPerformanceGoals.Where(d => d.Model == productName)
                                                                  .Where(d => d.StartDate < DateTime.Now)
                                                                  .Where(d => d.EndDate == null || d.EndDate > DateTime.Now)
+                                                                 .OrderByDescending(d => d.StartDate)
                                                                 .FirstOrDefault();
             return searchResult;
         }

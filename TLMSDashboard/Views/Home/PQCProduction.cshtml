@@ -19,7 +19,7 @@
         <div class="btn-group pcq-head w-40" role="group" aria-label="Basic example">
             <a class="btn bg-green-2" href="#">
 
-                <p>Yeild (%)</p>
+                <p>Yield (%)</p>
                 <p>@Model.performance.Yield</p>
             </a>
             <a class="btn bg-blue-2" href="#">
@@ -39,7 +39,7 @@
                 var PercentNotPassWithPass = Math.Round((decimal)NotPass / (NotPass + Pass) * 100);
                 var ProductionRunning = productionline.InspectEnd - productionline.InspectStart;
 
-                <a href="#" class="col-lg-6 col-md-12 pqc-line">
+                <a href="Activities?line=@productionline.Line" class="col-lg-6 col-md-12 pqc-line">
                     <div class="card border-0 shadow p-3 mb-5 bg-white roundeds">
                         <div class="pqc-line-head">
                             <h3>@productionline.Line</h3>
@@ -189,13 +189,13 @@
                     labels: labels,
                     datasets: [
                         {
-                            label: 'Pass',
+                            label: 'Passed',
                             data: passData,
                         backgroundColor: Samples.utils.color(1),
                             stack: 'Stack 0',
                         },
                         {
-                            label: 'Not Pass',
+                            label: 'Not Passed',
                             data: notPassData,
                             backgroundColor: Samples.utils.color(2),
                             stack: 'Stack 1',

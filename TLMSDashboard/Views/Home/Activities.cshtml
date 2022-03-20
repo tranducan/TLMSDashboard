@@ -21,7 +21,7 @@
         <h5 class="display-4">PQC production line dashboard</h5>
         <div class="btn-group pcq-head w-40" role="group" aria-label="Basic example">
             <a class="btn bg-green-2" href="#">
-                <p>Yeild (%)</p>
+                <p>Yield (%)</p>
                 <p>@Math.Round(yield * 100, 2)</p>
             </a>
             <a class="btn bg-blue-2" href="#">
@@ -59,13 +59,13 @@
                     labels: labels,
                     datasets: [
                         {
-                            label: 'Pass',
+                            label: 'Passed',
                             data: passData,
                             backgroundColor: Samples.utils.color(1),
                             stack: 'Stack 0',
                         },
                         {
-                            label: 'Not Pass',
+                            label: 'Not Passed',
                             data: notPassData,
                             backgroundColor: Samples.utils.color(2),
                             stack: 'Stack 1',
