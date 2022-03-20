@@ -17,7 +17,7 @@
 
 <main class="reloadable">
     <h4 id="reload-countdown" class="text-right mb-2"></h4>
-    <div class="jumbotron pcq-header">
+    <div class="jumbotron pcq-header" style="width: 65%">
         <h5 class="display-4">PQC production line dashboard</h5>
         <div class="btn-group pcq-head w-40" role="group" aria-label="Basic example">
             <a class="btn bg-green-2" href="#">
@@ -42,7 +42,7 @@
             $(document).ready(function () {
                 var DATA_COUNT = productionRealTimes.length;
                 var labels = productionRealTimes.map(function (data) {
-                    return `At: ${data.Hour}:00 - Running product: ${data.Product}`
+                    return [`At: ${data.Hour}:00`, `Running product: ${data.Product}`]
                 })
 
                 const passData = productionRealTimes.map(function (productionRealTime) {
@@ -61,7 +61,7 @@
                         {
                             label: 'Pass',
                             data: passData,
-                            backgroundColor: Samples.utils.color(1),
+                            backgroundColor: '#4caf50',
                             stack: 'Stack 0',
                         },
                         {
@@ -117,7 +117,7 @@
             $(document).ready(function () {
                 var DATA_COUNT = productionRealTimes.length;
                 var labels = productionRealTimes.map(function (data) {
-                    return `At: ${data.Hour}:00 - Running product: ${data.Product}`
+                    return [`At: ${data.Hour}:00`, `Running product: ${data.Product}`]
                 })
 
                 const throughputs = productionRealTimes.map(function (productionRealTime) {
@@ -132,16 +132,18 @@
                     labels: labels,
                     datasets: [
                         {
-                            label: 'Throughput (%)',
+                            label: 'Throughput (pqc)',
                             data: throughputs,
                             borderColor: Samples.utils.color(4),
                             backgroundColor: Samples.utils.color(4),
+                            yAxisID: 'y'
                         },
                         {
                             label: 'Yield (%)',
                             data: yields,
                             borderColor: Samples.utils.color(2),
                             backgroundColor: Samples.utils.color(2),
+                            yAxisID: 'y1'
                         }
                     ]
                 };
@@ -158,6 +160,22 @@
                             title: {
                                 display: true,
                                 text: 'Chart.js Line Chart'
+                            }
+                        },
+                        scales: {
+                            y: {
+                                type: 'linear',
+                                display: true,
+                                position: 'left',
+                            },
+                            y1: {
+                                type: 'linear',
+                                display: true,
+                                position: 'right',
+                                // grid line settings
+                                grid: {
+                                    drawOnChartArea: false, // only want the grid lines for one axis to show up
+                                },
                             }
                         }
                     },

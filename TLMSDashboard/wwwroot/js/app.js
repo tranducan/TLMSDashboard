@@ -22,14 +22,36 @@ var src = window.autocompleteData;
         $("#ex6").slider();
 
         if ($("#ex6") && reloadTimes) {
-            $("#ex6SliderVal").text(reloadTimes);
+            var reloadStr = getReloadTimeStr(reloadTimes)
+
+            $("#ex6SliderVal").text(reloadStr);
             $("#ex6").attr("data-slider-value", reloadTimes);
             $("#ex6").slider('setValue', reloadTimes)
         }
 
         $("#ex6").on("slide", function (slideEvt) {
-            $("#ex6SliderVal").text(slideEvt.value);
+            $("#ex6SliderVal").text(`${getReloadTimeStr(slideEvt.value)}`);
+            
         });
+
+        function getReloadTimeStr(reloadTimes) {
+            var secs = Number.parseInt(reloadTimes) * 1000;
+            const now = Date.now();
+            const nextReload = now + secs;
+            var countDownDate = new Date(nextReload).getTime();
+
+            var distance = countDownDate - now;
+
+            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+
+            if (minutes > 0) {
+                return `${minutes} mins ${seconds} secs`;
+            } else {
+                return `${seconds} secs`;
+            }
+        }
 
         $(".setting-form").on("submit", function (event) {
             event.preventDefault();
@@ -80,7 +102,7 @@ var src = window.autocompleteData;
         const isReloadable = $(".reloadable");
         if (reloadTimes && isReloadable) {
             const reloadInt = Number.parseInt(reloadTimes);
-            const timeOut = reloadInt * 60 * 1000;
+            const timeOut = reloadInt * 1000;
             const now = Date.now();
             const nextReload = now + timeOut;
 

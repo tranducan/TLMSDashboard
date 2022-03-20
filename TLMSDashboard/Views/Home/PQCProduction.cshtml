@@ -13,8 +13,8 @@
     var productionLineData = productionInformation.productionLines;
 </script>
 <main class="reloadable">
-    <h4 id="reload-countdown" class="text-right mb-2"></h4>
-    <div class="jumbotron pcq-header">
+    <h4 id="reload-countdown" class="text-right mb-4"></h4>
+    <div class="jumbotron pcq-header" style="width: 65%">
         <h5 class="display-4">PQC production line dashboard</h5>
         <div class="btn-group pcq-head w-40" role="group" aria-label="Basic example">
             <a class="btn bg-green-2" href="#">
@@ -157,7 +157,7 @@
 
 
     <div>
-        <h2 class="text-center">Model chart</h2>
+        <h2 class="text-center">Product Running Chart</h2>
         <canvas id="model-chart"></canvas>
     </div>
 
@@ -170,7 +170,7 @@
 
                 var DATA_COUNT = productionLineData.length;
                 var labels = productionLineData.map(function (data) {
-                    return `Line: ${data.Line} - Model: ${data.Product}`
+                    return [`Line: ${data.Line}`, ` Model: ${data.Product}`]
                 })
 
                 const passData = productionLineData.map(function (productionline) {
@@ -191,7 +191,7 @@
                         {
                             label: 'Pass',
                             data: passData,
-                        backgroundColor: Samples.utils.color(1),
+                            backgroundColor: '#4caf50',
                             stack: 'Stack 0',
                         },
                         {
