@@ -383,6 +383,8 @@ a.article:hover {
 .pqc-line-model p {
     color: black;
     margin: 16px 0;
+    font-weight: 500;
+    font-size: 22px;
 }
 
 .pqc-line-sumary {
@@ -410,17 +412,18 @@ a.article:hover {
     }
 
 .hour-unit {
-    font-size: 12px;
+    font-size: 16px;
     margin-left: 5px;
 }
 
 .pqc-unit {
-    font-size: 12px;
+    font-size: 22px;
     margin-left: 5px;
 }
 
 .sumary-item {
     margin: 18px 0;
+    font-size: 24px;
 }
 
 .pqc-line-quality span.head {
@@ -500,3 +503,10 @@ a.article:hover {
 .bg-blue-2 {
     background-color: #7486d5;
 }
+
+.table .thead-blue th {
+    color: #fff;
+    background-color: #7486d5;
+    border-color: #7486d5;
+}
+

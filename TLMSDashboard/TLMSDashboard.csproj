@@ -32,6 +32,7 @@
     <Content Remove="wwwroot\lib\vendor\" />
     <Content Remove="wwwroot\lib\slider\" />
     <Content Remove="wwwroot\lib\autocomplete\" />
+    <Content Remove="wwwroot\lib\bootstraptable\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="wwwroot\fonts\" />
@@ -43,5 +44,6 @@
     <Folder Include="wwwroot\lib\vendor\" />
     <Folder Include="wwwroot\lib\slider\" />
     <Folder Include="wwwroot\lib\autocomplete\" />
+    <Folder Include="wwwroot\lib\bootstraptable\" />
   </ItemGroup>
 </Project>
