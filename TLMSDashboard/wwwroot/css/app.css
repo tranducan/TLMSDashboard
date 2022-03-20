@@ -503,3 +503,10 @@ a.article:hover {
 .bg-blue-2 {
     background-color: #7486d5;
 }
+
+.table .thead-blue th {
+    color: #fff;
+    background-color: #7486d5;
+    border-color: #7486d5;
+}
+
