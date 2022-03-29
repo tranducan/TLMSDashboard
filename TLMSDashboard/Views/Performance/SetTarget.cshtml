@@ -39,7 +39,7 @@
                     console.log("DELELTE:", rowElement);
                     let rowAsJQuery = $(rowElement);
                     let listValue = rowAsJQuery.find("th, td").map(function () {
-                        return $(this).text()
+                        return $(this).text().replace(/\t/gm, '');
                     })
                         .get();
 
