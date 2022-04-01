@@ -33,7 +33,7 @@ namespace TLMSDashboard.Controllers.Api
         [HttpPost]
         public IActionResult Insert([FromBody]CrudViewModel<DailyPerformanceGoal> payload)
         {
-            if (payload.value is null)
+            if (payload?.value is null)
             {
                 throw new ArgumentNullException("payload received a null argument!");
             }
@@ -48,7 +48,7 @@ namespace TLMSDashboard.Controllers.Api
         [HttpPut]
         public IActionResult Update([FromBody]CrudViewModel<DailyPerformanceGoal> payload)
         {
-            if (payload.value is null)
+            if (payload?.value is null)
             {
                 throw new ArgumentNullException("payload received a null argument!");
             }
@@ -63,7 +63,7 @@ namespace TLMSDashboard.Controllers.Api
         [HttpDelete]
         public IActionResult Remove([FromBody] CrudViewModel<DailyPerformanceGoal> payload)
         {
-            if (payload.value is null)
+            if (payload?.value is null)
             {
                 throw new ArgumentNullException("payload received a null argument!");
             }

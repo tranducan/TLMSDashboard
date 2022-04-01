@@ -31,7 +31,7 @@
 
         $(document).ready(function () {
 
-            const PERFORMANCEGOAL_URL = "https://localhost:5001/api/performance";
+            const PERFORMANCEGOAL_URL = window.location.protocol +  '//'+  window.location.host + "/api/performance";
 
             var example2 = new BSTable("table2", {
                 editableColumns: "0,1,2,3,4,5,6,7,8,9,10",
@@ -160,6 +160,7 @@
                 };
 
                 console.log(JSON.stringify(postData));
+                debugger;
                 $.ajax({
                     url: PERFORMANCEGOAL_URL,
                     type: "put",

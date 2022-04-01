@@ -1,6 +1,13 @@
 USE [ERPSOFT]
 GO
 
+/****** Object:  Table [ProcessHistory].[PQCMesData]    Script Date: 21-Mar-22 12:59:33 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
 CREATE TABLE [ProcessHistory].[PQCMesData](
 	[PQCMesDataId] [bigint] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
 	[POCode] [nvarchar](200) NOT NULL,
