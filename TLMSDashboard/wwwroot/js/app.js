@@ -1,7 +1,9 @@
 var src = window.autocompleteData;
 
 (function($) {
-    $(document).ready(function() {
+    $(document).ready(function () {
+
+        $('input[name="daterange"]').daterangepicker();
       
         // TOGGLE SIDEBAR
 
@@ -135,6 +137,35 @@ var src = window.autocompleteData;
             $("#reload-countdown").html("Please setting reloads time")
         }
 
+
+        // Maptable table
+        const mapTable = $(".maptable");
+        if (mapTable.length > 0) {
+            const provideData = mapTable.attr("data-provider");
+            const keyRender = mapTable.find("thead tr th");
+            if (keyRender.length > 0) {
+                const listKeyRender = keyRender.map(function () {
+                    return $(this).attr("data-name")
+                })
+                    .get();
+
+                console.log(listKeyRender);
+                const valueRender = JSON.parse(provideData);
+                mapTable.append("<tbody></tbody>");
+                const mapBody = mapTable.find("tbody");
+
+                valueRender.forEach(function (value) {
+                    const el = $("<tr></tr>");
+                    const valueEls = listKeyRender.map(function (key) {
+                        return $(`<td>${value[key]}</td>`)
+                    })
+
+                    el.append(valueEls);
+                    mapBody.append(el);
+                })
+            }
+
+        }
 
 
         
