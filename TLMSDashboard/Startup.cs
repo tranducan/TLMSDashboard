@@ -31,10 +31,12 @@ namespace TLMSDashboard
             string connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<TLMSDataContext>(options => options.UseSqlServer(connection), ServiceLifetime.Singleton);
             services.AddSingleton<GetPQCData>();
+            services.AddSingleton<GetPQCDataSummary>();
             services.AddTransient<TLMSDataContext>();
             services.AddScoped<ISetDailyTarget, SetDailyTarget>();
             services.AddScoped<IGetPQCData, GetPQCData>();
             services.AddScoped<IMqcDataInteracting, MqcDataInteracting>();
+            services.AddScoped<IGetPQCDataSummary, GetPQCDataSummary>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

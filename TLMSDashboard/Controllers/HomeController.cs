@@ -20,7 +20,7 @@ namespace TLMSDashboard.Controllers
         private readonly IConfiguration _config;
         private IMqcDataInteracting mqcDataInteracting;
         private IGetPQCData getPQCData;
-        private string ConnectionString;
+        private IGetPQCDataSummary getPQCDataSummary;
         private DateTime setTimeStart = DateTime.MinValue;
 
         public HomeController(
@@ -31,8 +31,8 @@ namespace TLMSDashboard.Controllers
             _logger = logger;
             _config = configuration;
             mqcDataInteracting = new MqcDataInteracting(context);
-            ConnectionString = configuration.GetConnectionString("DefaultConnection");
-            getPQCData = new GetPQCData( context);
+            getPQCData = new GetPQCData(context);
+            getPQCDataSummary = new GetPQCDataSummary(context);
             if (Parameters.SetStaticValue.isDevEnvironment)
             {
                 DateTime setStartDate = configuration.GetValue<DateTime>("StartTime:Date");
@@ -102,6 +102,30 @@ namespace TLMSDashboard.Controllers
             var result = getPQCData.GetProductionRealtimes(line, dateTimeStart, dateTimeEnd)?.Result;
 
             return View(result);
+        }
+
+        public IActionResult PQCDataSummary(string line)
+        {
+            if (line is null)
+            {
+                throw new ArgumentNullException("input of line cannot be null");
+            }
+
+            DateTime dateTimeStart = setTimeStart;
+            DateTime dateTimeEnd = DateTime.Now;
+            if (line != "ALL")
+            {
+                var result = getPQCDataSummary.GetProductionSummarybyLine(line, dateTimeStart, dateTimeEnd)?.Result;
+
+                return View(result);
+            }
+            else
+            {
+                var result = getPQCDataSummary.GetProductionSummary(dateTimeStart, dateTimeEnd)?.Result;
+
+                return View(result);
+            }
+
         }
 
         public IActionResult Privacy()

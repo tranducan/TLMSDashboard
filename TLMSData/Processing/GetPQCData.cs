@@ -13,7 +13,6 @@ namespace TLMSData.Processing
 {
     public class GetPQCData : IGetPQCData
     {
-
         private readonly string ConnectionString;
         private readonly TLMSDataContext tLMSDataContext;
 

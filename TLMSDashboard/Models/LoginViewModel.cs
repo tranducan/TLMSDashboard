@@ -12,7 +12,7 @@ namespace TLMSDashboard.Models
         public string Password { get; set; }
 
         [Display(Name ="Remember me?")]
-        public bool RememberMe { get; set;}
+        public bool RememberMe { get; set; }
 
         [EmailAddress]
         public string Email { get; set; }

@@ -15,8 +15,16 @@ namespace TLMSData.Models
 
         public ProductionLine ProductionLine { get; set; }
 
+        public List<DefectItems> Notgood5Items { get; set; }
+
         public List<DefectItems> NotgoodItems { get; set; }
 
+        public List<DefectItems> Rework5Items { get; set; }
+
         public List<DefectItems> ReworkItems { get; set; }
+
+        public decimal NGOtherQuantity { get; set; }
+
+        public decimal RWOtherQuantity { get; set; }
     }
 }
