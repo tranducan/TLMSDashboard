@@ -31,7 +31,8 @@
 
         $(document).ready(function () {
 
-            const PERFORMANCEGOAL_URL = window.location.protocol +  '//'+  window.location.host + "/api/performance";
+            const PERFORMANCEGOAL_URL = window.location.protocol + '//' + window.location.host + "/api/performance";
+            var lastesRow;
 
             var example2 = new BSTable("table2", {
                 editableColumns: "0,1,2,3,4,5,6,7,8,9,10",
@@ -39,10 +40,10 @@
                     console.log("DELELTE:", rowElement);
                     let rowAsJQuery = $(rowElement);
                     let listValue = rowAsJQuery.find("th, td").map(function () {
-                        return $(this).text().replace(/\t/gm, '');
+                        return $(this).text().replace('\t', '');
                     })
                         .get();
-
+                    
                     let listKey = $("#table2 thead tr th").map(function () {
                         return $(this).attr("data-name");
                     })
@@ -52,7 +53,7 @@
                     var mapEditValue = {}
                     listKey.forEach(function (key, index) {
 
-                        mapEditValue[key] = (listValue[index] && listValue[index] != "null") ? listValue[index] : null;
+                        mapEditValue[key] = (listValue[index] && listValue[index] != "null" ) ? listValue[index] : null;
                     })
 
 
@@ -63,11 +64,10 @@
 
                 },
                 onEdit: function (rowElement) {
-                    console.log("EDITED:", rowElement);
 
                     let rowAsJQuery = $(rowElement);
                     let listValue = rowAsJQuery.find("th, td").map(function () {
-                        return $(this).text()
+                        return $(this).text().replace('\t', '');
                     })
                         .get();
 
@@ -79,22 +79,41 @@
 
                     var mapEditValue = {}
                     listKey.forEach(function (key, index) {
-                        mapEditValue[key] = (listValue[index] || listValue[index] != "null") ? listValue[index] : null;
+                        mapEditValue[key] = (listValue[index] && listValue[index] != "null") ? listValue[index] : null;
                     })
+                    console.log(mapEditValue)
 
-                    if (mapEditValue.DailyPerformanceGoaId.length > 0) {
+                    if (mapEditValue.DailyPerformanceGoaId && mapEditValue.DailyPerformanceGoaId.length > 0) {
                         // update
 
-                        editRecord(mapEditValue, function () {
-                            fetchPerformacnes();
-                        })
+                        let validate = validateBeforeSend(mapEditValue);
+
+                        console.log(validate);
+                        if (validate.isOk) {
+                            editRecord(mapEditValue, function () {
+                                fetchPerformacnes();
+                            })
+                        } else {
+                            alert(`${validate.field} is invalid`);
+                            example2.toEditTable(lastesRow)
+                        }
+                       
 
                     } else {
                         // add new
-                        delete mapEditValue.DailyPerformanceGoaId;
-                        addNewRecord(mapEditValue, function () {
-                            fetchPerformacnes();
-                        })
+                        let validate = validateBeforeSend(mapEditValue);
+
+                        if (validate.isOk) {
+                            delete mapEditValue.DailyPerformanceGoaId;
+
+                            addNewRecord(mapEditValue, function () {
+                                fetchPerformacnes();
+                            })
+                        } else {
+                            alert(`${validate.field} is invalid`);
+                            example2.toEditTable(lastesRow)
+                        }
+                        
                     }
                 },
                 advanced: {
@@ -103,8 +122,14 @@
             });
 
             $("#table2-new-row-button").click(function () {
+                var $tbody = $("#table2 tbody");
                 addRow();
                 example2.refresh();
+
+                lastesRow = $tbody.find("tr").last();
+                example2.toEditTable(lastesRow);
+
+                
             })
 
             function fetchPerformacnes() {
@@ -132,6 +157,7 @@
                     })
 
                     example2.refresh();
+
                 })
             }
 
@@ -140,7 +166,6 @@
                     value: data
                 };
 
-                console.log(JSON.stringify(postData));
                 $.ajax({
                     url: PERFORMANCEGOAL_URL,
                     type: "post",
@@ -221,8 +246,32 @@
 
                             </tr>
             `)
+
         }
 
+        function isEmpty(string) {
+            return string || string == "null" || string == null;
+        }
+
+        function validateBeforeSend(data) {
+            const requireField = ["Model", "Site", "Line", "Process", "OutputTarget", "NotGoodTarget", "ReworkTarget", "StartDate"];
+
+            for (let i = 0; i < requireField.length; i++) {
+                let field = requireField[i];
+                console.log("first field", field, data[field])
+                if (data[field] == null) {
+                    return {
+                        isOk: false,
+                        field: field
+                    }
+                }
+            }
+
+            return {
+                isOk: true
+            };
+
+        }
         
     })(jQuery);</script>
 

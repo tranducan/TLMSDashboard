@@ -102,7 +102,7 @@ var src = window.autocompleteData;
 
         // COUNTDOWN RELOAD
         const isReloadable = $(".reloadable");
-        if (reloadTimes && isReloadable) {
+        if (reloadTimes && isReloadable.length > 0) {
             const reloadInt = Number.parseInt(reloadTimes);
             const timeOut = reloadInt * 1000;
             const now = Date.now();
