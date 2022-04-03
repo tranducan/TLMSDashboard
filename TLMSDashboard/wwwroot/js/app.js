@@ -4,7 +4,23 @@ var src = window.autocompleteData;
     $(document).ready(function () {
 
         $('input[name="daterange"]').daterangepicker();
-      
+
+        var form = $("#filter").submit(function (e) {
+            e.preventDefault();
+
+            var datePicker = $("#datepicker").data('daterangepicker');
+            var startDate = datePicker.startDate.format('YYYY-MM-DD');
+            var endDate = datePicker.endDate.format('YYYY-MM-DD');
+            var line = $("#linesummary").val();
+
+            var params = $.param({
+                StartDate: startDate,
+                EndDate: endDate,
+                Line: line
+            })
+            window.location.href = location.protocol + '//' + location.host + location.pathname + '?' + params;
+        })
+        
         // TOGGLE SIDEBAR
 
         const reloadTimes = localStorage.getItem("reload-time");
@@ -166,10 +182,6 @@ var src = window.autocompleteData;
             }
 
         }
-
-
-        
-
 
     });
 })(jQuery);
