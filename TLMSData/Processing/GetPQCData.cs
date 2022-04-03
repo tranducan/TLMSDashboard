@@ -58,6 +58,7 @@ namespace TLMSData.Processing
                         var target = tLMSDataContext.DailyPerformanceGoals.Where(d => d.Model == productLine.Product)
                                                                  .Where(d => d.StartDate < DateTime.Now)
                                                                  .Where(d => d.EndDate == null || d.EndDate > DateTime.Now)
+                                                                 .OrderByDescending(o => o.StartDate)
                                                                 .FirstOrDefault();
 
                         productLine.OPTarget = target.OutputTarget;

@@ -28,6 +28,8 @@ namespace TLMSData.Models
 
         public decimal Rework { get; set; }
 
+        public DateTime Date { get; set; }
+
         public DateTime InspectStart { get; set; }
 
         public DateTime InspectEnd { get; set; }

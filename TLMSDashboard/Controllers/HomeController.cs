@@ -18,9 +18,7 @@ namespace TLMSDashboard.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IConfiguration _config;
-        private IMqcDataInteracting mqcDataInteracting;
         private IGetPQCData getPQCData;
-        private IGetPQCDataSummary getPQCDataSummary;
         private DateTime setTimeStart = DateTime.MinValue;
 
         public HomeController(
@@ -30,9 +28,7 @@ namespace TLMSDashboard.Controllers
         {
             _logger = logger;
             _config = configuration;
-            mqcDataInteracting = new MqcDataInteracting(context);
             getPQCData = new GetPQCData(context);
-            getPQCDataSummary = new GetPQCDataSummary(context);
             if (Parameters.SetStaticValue.isDevEnvironment)
             {
                 DateTime setStartDate = configuration.GetValue<DateTime>("StartTime:Date");
@@ -52,24 +48,6 @@ namespace TLMSDashboard.Controllers
         public IActionResult Index()
         {
             return View();
-        }
-
-        public IActionResult PqcIndex()
-        {
-            DateTime dateTimeStart = setTimeStart;
-            DateTime dateTimeEnd = DateTime.Now;
-            var pqcDataSummary = mqcDataInteracting.GetPqcDataSummary(dateTimeStart, dateTimeEnd)?.Result;
-
-            return View(pqcDataSummary);
-        }
-
-        public IActionResult PqcDataIndex()
-        {
-            DateTime dateTimeStart =  setTimeStart;
-            DateTime dateTimeEnd = DateTime.Now;
-            var pqcDataSummary = mqcDataInteracting.GetPqcData(dateTimeStart, dateTimeEnd)?.Result;
-
-            return View(pqcDataSummary);
         }
 
         public IActionResult Models()
@@ -102,30 +80,6 @@ namespace TLMSDashboard.Controllers
             var result = getPQCData.GetProductionRealtimes(line, dateTimeStart, dateTimeEnd)?.Result;
 
             return View(result);
-        }
-
-        public IActionResult PQCDataSummary(string line)
-        {
-            if (line is null)
-            {
-                throw new ArgumentNullException("input of line cannot be null");
-            }
-
-            DateTime dateTimeStart = setTimeStart;
-            DateTime dateTimeEnd = DateTime.Now;
-            if (line != "ALL")
-            {
-                var result = getPQCDataSummary.GetProductionSummarybyLine(line, dateTimeStart, dateTimeEnd)?.Result;
-
-                return View(result);
-            }
-            else
-            {
-                var result = getPQCDataSummary.GetProductionSummary(dateTimeStart, dateTimeEnd)?.Result;
-
-                return View(result);
-            }
-
         }
 
         public IActionResult Privacy()
