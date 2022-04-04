@@ -1,16 +1,40 @@
 ﻿@model LoginViewModel
 
 @{
+    Layout = null;
     ViewData["Title"] = "Log in";
 }
-<div class ="login-box">
-    <div class ="login-box-body">
-        <div class="login-logo">
-            <a href="/"></a>
-        </div>
-        <p class="login-box-msg">Sign in to start your session</p>
-        <form asp-route-returnurl ="@ViewData["ReturnUrl"]" method ="post">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>@ViewData["Title"] - TLMSDashboard</title>
+    @Html.Partial("_LayoutStyleSheet")
+
+</head>
+<body>
+
+    <div class="text-center w-40 mx-auto" style="margin-top: 10%">
+        <form class="form-signin" method="post">
+            <img class="mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+            <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+            <label for="inputEmail" class="sr-only">Email address</label>
+            <input type="email" id="inputEmail" class="form-control mb-3 form-control-lg" placeholder="Email address" required autofocus>
+            <label for="inputPassword" class="sr-only">Password</label>
+            <input type="password" id="inputPassword" class="form-control mb-3 form-control-lg" placeholder="Password" required>
+
+            <div class="alert alert-warning mt-2" role="alert">
+                Login failed!
+            </div>
+            <div class="checkbox mb-3">
+
+            </div>
+            <button class="btn btn-lg btn-primary btn-block bg-blue-2" type="submit">Sign in</button>
 
         </form>
+      
     </div>
-</div>
+    
+    
+    @Html.Partial("_LayoutScript")
+</body>
+</html>

@@ -1,7 +1,24 @@
 ﻿@model List<TLMSData.Models.ProductionSummary>
 @{
     ViewData["Title"] = "PCQDataSummary Page";
+    var Query = ViewContext.HttpContext.Request.Query;
     var Ouput = Newtonsoft.Json.JsonConvert.SerializeObject(Model);
+    var LineRequest = Query["Line"];
+    var StartDate = Query["StartDate"];
+    var EndDate = Query["EndDate"];
+
+    var Format = "yyyy-MM-dd";
+    var TargetFormat = "MM/dd/yyyy";
+
+    // TODO: Check LineRequest, StartDate, EndDate có giá trị hay không? Nếu không thì nhận giá trị default Line = ALL, DefaultDate
+
+    var StartDateTime = DateTime.ParseExact(StartDate, Format, System.Globalization.CultureInfo.InvariantCulture);
+    var EndDateTime = DateTime.ParseExact(EndDate, Format, System.Globalization.CultureInfo.InvariantCulture);
+
+    var StartDateFormat = StartDateTime.ToString(TargetFormat);
+    var EndDateFormat = EndDateTime.ToString(TargetFormat);
+    var DefaultDate = String.Format("%s - %s", DateTime.Now.ToString("MM/dd/yyyy"), DateTime.Now.ToString("MM/dd/yyyy"));
+
 }
 
 <script>
@@ -13,22 +30,27 @@
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="inputDate">Range Date</label>
-                <input type="text" name="daterange" id="datepicker" class="form-control w-100" value=" @DateTime.Now.ToString("dd-MM-YYYY") - @DateTime.Now.ToString("dd-MM-YYYY")" />
+                <input type="text"
+                       name="daterange"
+                       id="datepicker"
+                       class="form-control w-100"
+                       value="@StartDateFormat - @EndDateFormat"
+                 />
             </div>
             <div class="form-group col-md-6">
                 <label for="inputLine">Line</label>
                 <select class="form-control w-100" name="Line" id="linesummary">
-                    <option value="ALL">All</option>
-                    <option value="L01">L01</option>
-                    <option value="L02">L02</option>
-                    <option value="L03">L03</option>
-                    <option value="L04">L04</option>
-                    <option value="L05">L05</option>
-                    <option value="L06">L06</option>
-                    <option value="L07">L07</option>
-                    <option value="L08">L08</option>
-                    <option value="L09">L09</option>
-                    <option value="L10">L10</option>
+                    <option value="ALL" selected="@(LineRequest.Equals("ALL"))">All</option>
+                    <option value="L01" selected="@(LineRequest.Equals("L01"))">L01</option>
+                    <option value="L02" selected="@(LineRequest.Equals("L02"))">L02</option>
+                    <option value="L03" selected="@(LineRequest.Equals("L03"))">L03</option>
+                    <option value="L04" selected="@(LineRequest.Equals("L04"))">L04</option>
+                    <option value="L05" selected="@(LineRequest.Equals("L05"))">L05</option>
+                    <option value="L06" selected="@(LineRequest.Equals("L06"))">L06</option>
+                    <option value="L07" selected="@(LineRequest.Equals("L07"))">L07</option>
+                    <option value="L08" selected="@(LineRequest.Equals("L08"))">L08</option>
+                    <option value="L09" selected="@(LineRequest.Equals("L09"))">L09</option>
+                    <option value="L10" selected="@(LineRequest.Equals("L10"))">L10</option>
                 </select>
             </div>
         </div>

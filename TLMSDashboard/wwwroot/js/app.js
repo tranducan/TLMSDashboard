@@ -1,9 +1,43 @@
 var src = window.autocompleteData;
+var incorrectFlag = false;
 
-(function($) {
+(function ($) {
+    function checkPasswordMatch() {
+        var $passwordForm = $("#update-password-form");
+        var password = $passwordForm.find("[name=NewPassword]").first().val();
+        var confirmPassword = $passwordForm.find("[name=ConfirmPasswod]").first().val();
+
+        if (password != confirmPassword)
+            incorrectFlag = true;
+        else
+            incorrectFlag = false;
+    }
+
+    $(document).on('click', '.pass_show .ptxt', function () {
+
+        $(this).text($(this).text() == "Show" ? "Hide" : "Show");
+
+        $(this).prev().attr('type', function (index, attr) { return attr == 'password' ? 'text' : 'password'; });
+
+    });
+
     $(document).ready(function () {
 
         $('input[name="daterange"]').daterangepicker();
+        $('.pass_show').append('<span class="ptxt">Show</span>');
+
+        // CONFIRM PASSWORD
+
+        $("#ConfirmPass").keyup(checkPasswordMatch);
+        $("#update-password-form [type=submit]").click(function (e) {
+            e.preventDefault();
+
+            if (incorrectFlag) {
+                alert("Password Confirm Not Match");
+            } else {
+                $('#update-password-form').submit();
+            }
+        });
 
         var form = $("#filter").submit(function (e) {
             e.preventDefault();
@@ -20,7 +54,8 @@ var src = window.autocompleteData;
             })
             window.location.href = location.protocol + '//' + location.host + "/Summary/Detail" + '?' + params;
         })
-        
+
+
         // TOGGLE SIDEBAR
 
         const reloadTimes = localStorage.getItem("reload-time");

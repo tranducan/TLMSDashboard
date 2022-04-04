@@ -45,5 +45,9 @@
     <Folder Include="wwwroot\lib\slider\" />
     <Folder Include="wwwroot\lib\autocomplete\" />
     <Folder Include="wwwroot\lib\bootstraptable\" />
+    <Folder Include="Views\User\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Views\User\" />
   </ItemGroup>
 </Project>

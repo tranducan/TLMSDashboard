@@ -4,34 +4,48 @@
         <strong>TLMS</strong>
     </div>
 
-    <ul class="list-unstyled components">
+    <ul class="list-unstyled">
         <li class="active">
-            <a href="/Home" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" data-target="#homeSubmenu">
+            <a href="/" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" data-target="#homeSubmenu">
                 <i class="fas fa-home"></i>
-                Home
+                PQC
             </a>
             <ul class="collapse list-unstyled" id="homeSubmenu">
                 <li>
-                    <a href="/Home/PQCProduction">PQC Production</a>
+                    <a href="/Home/PQCProduction">Production</a>
                 </li>
                 <li>
-                    <a href="/Home/Activities?Line=ALL">PCQ Realtime</a>
+                    <a href="/Home/Activities?Line=ALL">Realtime</a>
                 </li>
                 <li>
-                    <a href="/Summary/Index">PQC Summary</a>
+                    <a href="/Summary/Detail?Line=ALL&StartDate=2019-08-10&EndDate=2019-12-20">Summary</a>
                 </li>
             </ul>
         </li>
         <li>
-            <a href="/Home/Settings">
-                <i class="fas fa-briefcase"></i>
-                Setting
+            <a href="#" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" data-target="#userMenu">
+                <i class="fas fa-user"></i>
+                User
             </a>
+            <ul class="collapse list-unstyled" id="userMenu">
+                <li>
+                    <a href="/User/Update">Update Password</a>
+                </li>
+                <li>
+                    <a href="/User/Create">Create new</a>
+                </li>
+            </ul>
         </li>
         <li>
             <a href="/Performance/Settarget">
-                <i class="fas fa-briefcase"></i>
+                <i class="fas fa-chart-bar"></i>
                 Performance Goal
+            </a>
+        </li>
+        <li>
+            <a href="/Home/Settings">
+                <i class="fas fa-cog"></i>
+                Setting
             </a>
         </li>
         <li>
