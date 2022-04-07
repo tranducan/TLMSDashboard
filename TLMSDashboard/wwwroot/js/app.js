@@ -21,6 +21,7 @@ var incorrectFlag = false;
 
     });
 
+
     $(document).ready(function () {
 
         $('input[name="daterange"]').daterangepicker();
@@ -54,6 +55,7 @@ var incorrectFlag = false;
             })
             window.location.href = location.protocol + '//' + location.host + "/Summary/Detail" + '?' + params;
         })
+
 
 
         // TOGGLE SIDEBAR

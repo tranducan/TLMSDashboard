@@ -2,8 +2,9 @@
 @model TLMSData.Models.ProductionInformation
 
 @{
-     var Ouput = Newtonsoft.Json.JsonConvert.SerializeObject( Model);  
-
+    var Ouput = Newtonsoft.Json.JsonConvert.SerializeObject( Model);
+    var Query = ViewContext.HttpContext.Request.Query;
+    var LineRequest = Query["Line"];
 }
 
 
@@ -14,7 +15,30 @@
 </script>
 <main class="reloadable">
     <h4 id="reload-countdown" class="text-right mb-4"></h4>
-    <div class="jumbotron pcq-header" style="width: 65%">
+   <div class="row mb-4">
+       <div class="col-7"></div>
+       <div class="col-5">
+           <form class="autosubit-form">
+               <div class="form-row">
+                    <select class="form-control w-100 form-control-lg" name="Line" id="linesummary" onchange="this.form.submit()">
+                        <option value="ALL" selected="@(LineRequest.Equals("ALL"))">All</option>
+                        <option value="L01" selected="@(LineRequest.Equals("L01"))">L01</option>
+                        <option value="L02" selected="@(LineRequest.Equals("L02"))">L02</option>
+                        <option value="L03" selected="@(LineRequest.Equals("L03"))">L03</option>
+                        <option value="L04" selected="@(LineRequest.Equals("L04"))">L04</option>
+                        <option value="L05" selected="@(LineRequest.Equals("L05"))">L05</option>
+                        <option value="L06" selected="@(LineRequest.Equals("L06"))">L06</option>
+                        <option value="L07" selected="@(LineRequest.Equals("L07"))">L07</option>
+                        <option value="L08" selected="@(LineRequest.Equals("L08"))">L08</option>
+                        <option value="L09" selected="@(LineRequest.Equals("L09"))">L09</option>
+                        <option value="L10" selected="@(LineRequest.Equals("L10"))">L10</option>
+                    </select>
+               </div>
+           </form>
+       </div>
+   </div>
+
+    <div class="jumbotron pcq-header" style="width: 100%; padding: 2rem 1rem">
         <h5 class="display-4">PQC production line dashboard</h5>
         <div class="btn-group pcq-head w-40" role="group" aria-label="Basic example">
             <a class="btn bg-green-2" href="#">
