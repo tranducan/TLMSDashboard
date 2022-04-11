@@ -28,12 +28,22 @@ namespace TLMSData.Models
 
         public decimal Rework { get; set; }
 
+        public double DefectRate { get; set; }
+
+        public double ReworkRate { get; set; }
+
+        public double OutputRate { get; set; }
+
         public DateTime Date { get; set; }
+
+        public string Shift { get; set; }
 
         public DateTime InspectStart { get; set; }
 
         public DateTime InspectEnd { get; set; }
 
         public TimeSpan ProductionRunning { get; set; }
+
+        public ProductionStatus Status { get; set; }
     }
 }

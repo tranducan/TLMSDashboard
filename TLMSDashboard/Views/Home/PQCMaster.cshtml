@@ -2,6 +2,7 @@
 @model TLMSData.Models.ProductionInformation
 
 @{
+    ViewData["Title"] = "Main Dashboard";
     var Ouput = Newtonsoft.Json.JsonConvert.SerializeObject( Model);
     var Query = ViewContext.HttpContext.Request.Query;
     var LineRequest = Query["Line"];
@@ -15,29 +16,6 @@
 </script>
 <main class="reloadable">
     <h4 id="reload-countdown" class="text-right mb-4"></h4>
-   <div class="row mb-4">
-
-       <div class="col-7">
-           <form class="autosubit-form">
-               <div class="form-inline">
-                   <label for="line" class="mb-2 mr-sm-2">Line selected:</label>
-                    <select class="form-control mb-2 mr-sm-2 form-control-lg" name="Line" id="linesummary" onchange="this.form.submit()">
-                        <option value="ALL" selected="@(LineRequest.Equals("ALL"))">All</option>
-                        <option value="L01" selected="@(LineRequest.Equals("L01"))">L01</option>
-                        <option value="L02" selected="@(LineRequest.Equals("L02"))">L02</option>
-                        <option value="L03" selected="@(LineRequest.Equals("L03"))">L03</option>
-                        <option value="L04" selected="@(LineRequest.Equals("L04"))">L04</option>
-                        <option value="L05" selected="@(LineRequest.Equals("L05"))">L05</option>
-                        <option value="L06" selected="@(LineRequest.Equals("L06"))">L06</option>
-                        <option value="L07" selected="@(LineRequest.Equals("L07"))">L07</option>
-                        <option value="L08" selected="@(LineRequest.Equals("L08"))">L08</option>
-                        <option value="L09" selected="@(LineRequest.Equals("L09"))">L09</option>
-                        <option value="L10" selected="@(LineRequest.Equals("L10"))">L10</option>
-                    </select>
-               </div>
-           </form>
-       </div>
-   </div>
 
     <div class="jumbotron pcq-header" style="width: 100%; padding: 2rem 1rem">
         <h5 class="display-4">PQC production line dashboard</h5>
@@ -64,13 +42,22 @@
                 var PercentNotPassWithPass = Math.Round((decimal)NotPass / (NotPass + Pass) * 100);
                 var ProductionRunning = productionline.InspectEnd - productionline.InspectStart;
 
-                <a href="Activities?line=@productionline.Line" class="col-lg-6 col-md-12 pqc-line">
+                <a href="Activities?line=@productionline.Line" class="col-sm-4 pqc-line">
                     <div class="card border-0 shadow p-3 mb-5 bg-white roundeds">
                         <div class="pqc-line-head">
                             <h3>@productionline.Line</h3>
                         </div>
                         <div class="pqc-line-model">
-                            <p>@productionline.Product</p>
+                            @{
+                                if(productionline.Status == TLMSData.Models.ProductionStatus.NotSetTarget)
+                                {
+                                    <p class = "text-warning">@productionline.Product (Not set Target) </p>
+                                }
+                                else
+                                {
+                                     <p class = "text-success">@productionline.Product </p>
+                                }
+                        }
                         </div>
                         <div class="pqc-line-sumary">
                             <div class="row align-items-center">
@@ -106,7 +93,20 @@
                         </div>
 
                         <div class="pqc-line-quality">
-                            <h3>Quality test</h3>
+                            @{
+                                if(productionline.Status == TLMSData.Models.ProductionStatus.HighDefect)
+                                {
+                                    <h3 class= "text-danger">Defect Rate: @Math.Round(productionline.DefectRate,2).ToString() (%) </h3>
+                                }
+                                else if(productionline.Status == TLMSData.Models.ProductionStatus.HighRework)
+                                {
+                                    <h3 class= "text-warning">Rework Rate: @Math.Round(productionline.ReworkRate,2).ToString() (%) </h3>
+                                }
+                                else
+                                {
+                                    <h3 class= "text-success">Output Rate: @Math.Round(productionline.OutputRate,2).ToString() (%) </h3>
+                                }
+                            }
                             <div class="d-flex justify-content-between">
                                 <span class="head not-pass-value">@NotPass</span>
                                 <span class="head pass-value">@Pass</span>

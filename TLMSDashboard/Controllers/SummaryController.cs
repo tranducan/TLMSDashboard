@@ -54,13 +54,13 @@ namespace TLMSDashboard.Controllers
 
             if (line != "ALL")
             {
-                var result = getPQCDataSummary.GetProductionSummarybyLinebyDate(line, StartDate, EndDate)?.Result;
+                var result = getPQCDataSummary.GetProductionSummarybyLinebyShiftDate(line, StartDate, EndDate)?.Result;
 
                 return View(result);
             }
             else
             {
-                var result = getPQCDataSummary.GetProductionSummarybyDate(StartDate, EndDate)?.Result;
+                var result = getPQCDataSummary.GetProductionSummarybyShiftDate(StartDate, EndDate)?.Result;
 
                 return View(result);
             }

@@ -59,13 +59,37 @@ namespace TLMSDashboard.Controllers
             return View(result);
         }
 
-        public IActionResult PQCProduction()
+        public IActionResult PQCMaster()
         {
             DateTime dateTimeStart = setTimeStart;
             DateTime dateTimeEnd = DateTime.Now;
+
             var result = getPQCData.GetProductionInformation(dateTimeStart, dateTimeEnd)?.Result;
 
             return View(result);
+        }
+
+        public IActionResult PQCProduction(string line)
+        {
+            DateTime dateTimeStart = setTimeStart;
+            DateTime dateTimeEnd = DateTime.Now;
+            if (line is null)
+            {
+                return View(new TLMSData.Models.ProductionInformation());
+            }
+
+            if (line == "ALL")
+            {
+                var result = getPQCData.GetProductionInformation(dateTimeStart, dateTimeEnd)?.Result;
+
+                return View(result);
+            }
+            else
+            {
+                var result = getPQCData.GetProductionInformationbyLine(line, dateTimeStart, dateTimeEnd)?.Result;
+
+                return View(result);
+            }
         }
 
         public IActionResult Activities(string line)

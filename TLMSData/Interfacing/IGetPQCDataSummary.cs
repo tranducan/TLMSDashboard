@@ -15,5 +15,9 @@ namespace TLMSData.Interfacing
         Task<List<ProductionSummary>> GetProductionSummarybyDate(DateTime StartTime, DateTime EndTime);
 
         Task<List<ProductionSummary>> GetProductionSummarybyLinebyDate(string line, DateTime StartTime, DateTime EndTime);
+
+        Task<List<ProductionSummary>> GetProductionSummarybyShiftDate(DateTime StartTime, DateTime EndTime);
+
+        Task<List<ProductionSummary>> GetProductionSummarybyLinebyShiftDate(string line, DateTime StartTime, DateTime EndTime);
     }
 }

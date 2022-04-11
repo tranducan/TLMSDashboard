@@ -10,7 +10,7 @@ namespace TLMSData.Models
 
         public string DefectMES { get; set; }
 
-        public string DefectMESName { get; set; }
+        public string Description { get; set; }
 
         public decimal Quantity { get; set; }
 

@@ -77,25 +77,32 @@
     <table class="table table-striped table-bordered">
     <thead class="thead-blue">
         <tr>
-            <th data-name="Date">Date</th>
-            <th data-name="StartTime">StartTime</th>
-            <th data-name="EndTime">EndTime</th>
-            <th data-name="Line">Line</th>
-            <th data-name="Product">Product</th>
-            <th data-name="Lot">Lot</th>
-            <th data-name="Output">Output</th>
-            <th data-name="NG1">NG1</th>
-            <th data-name="NG2">NG2</th>
-            <th data-name="NG2">NG3</th>
-            <th data-name="NG2">NG4</th>
-            <th data-name="NG2">NG5</th>
-            <th data-name="NotgoodItems">Other NG</th>
-            <th data-name="RW1">RW1</th>
-            <th data-name="RW2">RW2</th>
-            <th data-name="RW3">RW3</th>
-            <th data-name="RW4">RW4</th>
-            <th data-name="RW5">RW5</th>
-            <th data-name="NotgoodItems">Other RW</th>
+                @{
+                    if (!(Model is null))
+                    {
+                        <th data-name="Date">Date</th>
+                         <th data-name="Shift">Working Shift</th>
+                        <th data-name="StartTime">StartTime</th>
+                        <th data-name="EndTime">EndTime</th>
+                        <th data-name="Line">Line</th>
+                        <th data-name="Product">Product</th>
+                        <th data-name="Lot">Lot</th>
+                        <th data-name="Output">Output</th>
+                            <th data-name="NG1">@Model[0].NotgoodItems[0].Description</th>
+                            <th data-name="NG2">@Model[0].NotgoodItems[1].Description</th>
+                            <th data-name="NG2">@Model[0].NotgoodItems[2].Description</th>
+                            <th data-name="NG2">@Model[0].NotgoodItems[3].Description</th>
+                            <th data-name="NG2">@Model[0].NotgoodItems[4].Description</th>
+                            <th data-name="NotgoodItems">Other NG</th>
+                            <th data-name="RW1">@Model[0].Rework5Items[0].Description</th>
+                            <th data-name="RW2">@Model[0].Rework5Items[1].Description</th>
+                            <th data-name="RW3">@Model[0].Rework5Items[2].Description</th>
+                            <th data-name="RW4">@Model[0].Rework5Items[3].Description</th>
+                            <th data-name="RW5">@Model[0].Rework5Items[4].Description</th>
+                            <th data-name="NotgoodItems">Other RW</th>
+                    }
+                }
+            
         </tr>
     </thead>
     <tbody>
@@ -107,6 +114,7 @@
             {
                 <tr>
                     <td>@productionSumary.ProductionLine.Date.ToString("dd-MMM-yyyy")</td>
+                    <td>@productionSumary.ProductionLine.Shift</td>
                     <td>@productionSumary.ProductionLine.InspectStart.ToString("HH:mm:ss")</td>
                     <td>@productionSumary.ProductionLine.InspectEnd.ToString("HH:mm:ss")</td>
                     <td>@productionSumary.ProductionLine.Line</td>
@@ -123,7 +131,7 @@
                     <td>
                         <button type="button" class="btn btn-primary bg-blue-2 btn-sm" data-toggle="modal" data-target="#notgoodModal-@index">
                             Other NG
-                            <span class="badge badge-light">@productionSumary.NotgoodItems.Count()</span>
+                            <span class="badge badge-light">@productionSumary.NGOtherQuantity</span>
                         </button>
 
                     </td>
@@ -136,7 +144,7 @@
                     <td>
                         <button type="button" class="btn btn-primary bg-blue-2 btn-sm" data-toggle="modal" data-target="#rewordModal-@index">
                             Other RW
-                            <span class="badge badge-light">@productionSumary.ReworkItems.Count()</span>
+                            <span class="badge badge-light">@productionSumary.RWOtherQuantity</span>
                         </button>
 
                     </td>
@@ -172,6 +180,7 @@
                                     <thead class="thead-blue">
                                         <tr>
                                             <th data-name="DefectCode">DefectCode</th>
+                                            <th data-name="Description">Description</th>
                                             <th data-name="Quantity">Quantity</th>
                                         </tr>
                                     </thead>
@@ -181,6 +190,7 @@
                                             {
                                                 <tr>
                                                     <td>@notGoodItem.DefectCode</td>
+                                                    <td>@notGoodItem.Description</td>
                                                     <td>@notGoodItem.Quantity</td>
                                                 </tr>
 
@@ -225,6 +235,7 @@
                                     <thead class="thead-blue">
                                         <tr>
                                             <th data-name="DefectCode">DefectCode</th>
+                                            <th data-name="Description">Description</th>
                                             <th data-name="Quantity">Quantity</th>
                                         </tr>
                                     </thead>
@@ -234,6 +245,7 @@
                                             {
                                                 <tr>
                                                     <td>@reworkItem.DefectCode</td>
+                                                    <td>@reworkItem.Description</td>
                                                     <td>@reworkItem.Quantity</td>
                                                 </tr>
 
@@ -264,6 +276,7 @@
             const exportData = data.map(function (production) {
                 let lineInfo = {
                     Date: production.ProductionLine.Date,
+                    WorkingShift: production.ProductionLine.Shift,
                     StartTime: production.ProductionLine.InspectStart,
                     EndTime: production.ProductionLine.InspectEnd,
                     Line: production.ProductionLine.Line,
@@ -273,11 +286,10 @@
                 }
 
                 production.NotgoodItems.forEach(function (item) {
-                    lineInfo[item.DefectCode] = `${item.Quantity}`
+                    lineInfo[item.Description] = `${item.Quantity}`
                 })
-                let reworkItems = {};
                 production.ReworkItems.forEach(function (item) {
-                    lineInfo[item.DefectCode] = `${item.Quantity}`
+                    lineInfo[item.Description] = `${item.Quantity}`
                 })
 
                 return lineInfo;

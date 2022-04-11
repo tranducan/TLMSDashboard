@@ -23,6 +23,8 @@ namespace EFTechlink.EFCore
 
         public virtual DbSet<DailyPerformanceGoal> DailyPerformanceGoals { get; set; }
 
+        public virtual DbSet<DefectCode> DefectCodes { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -203,6 +205,34 @@ namespace EFTechlink.EFCore
                     .IsRequired()
                     .IsRowVersion()
                     .IsConcurrencyToken();
+            });
+
+            modelBuilder.Entity<DefectCode>(entity =>
+            {
+                entity.HasKey(e => e.DefectCodeId)
+                        .HasName("PK_DefectCode_DefectCodeId");
+
+                entity.ToTable("DefectCode", "ProcessHistory");
+
+                entity.Property(e => e.Code)
+                    .IsRequired()
+                    .HasMaxLength(20)
+                    .HasColumnName("DefectCode");
+
+                entity.Property(e => e.Description).HasMaxLength(1000);
+
+                entity.Property(e => e.Line).HasMaxLength(20);
+
+                entity.Property(e => e.MesdefectCode)
+                    .HasMaxLength(20)
+                    .HasColumnName("MESDefectCode");
+
+                entity.Property(e => e.Process)
+                    .IsRequired()
+                    .HasMaxLength(10);
+
+                entity.Property(e => e.Site).HasMaxLength(20);
+
             });
 
             OnModelCreatingPartial(modelBuilder);

@@ -9,10 +9,11 @@ namespace TLMSData.Models
         public ProductionInformation()
         {
             productionLines = new List<ProductionLine>();
+            performance = new ProductionPerformance();
         }
 
         public List<ProductionLine> productionLines { get; set; }
 
-        public ProductionPerformance performance { get; set; } 
+        public ProductionPerformance performance { get; set; }
     }
 }

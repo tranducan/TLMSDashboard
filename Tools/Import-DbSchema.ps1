@@ -27,7 +27,7 @@ param (
 )
 
 $tables =
-    "ProcessHistory.DailyPerformanceGoal"
+    "ProcessHistory.DefectCode"
     
 
 $commandArgs =

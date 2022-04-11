@@ -15,28 +15,15 @@ INSERT INTO [ProcessHistory].[PQCMesData]
            ,[InspectDateTime]
 		   )
      VALUES
-           ('ABDCXYZ'
+           ('ABDCXYZ-New'
            ,'202103200001'
-           ,'ABCXYZ'
+           ,'ABCXYZ-TEST'
            ,'TL01'
-           ,'L03'
+           ,'L07'
            ,'PQC'
            ,'OUTPUT'
            ,'OP'
-           ,20
-           ,'AN'
-           ,GETDATE()
-		   ),
-
-		    ('ABDCXYZ'
-           ,'202103200001'
-           ,'BFFCHR4383P'
-           ,'TL01'
-           ,'L01'
-           ,'PQC'
-           ,'OUTPUT'
-           ,'OP'
-           ,30
+           ,50
            ,'AN'
            ,GETDATE()
 		   )

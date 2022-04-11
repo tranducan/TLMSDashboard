@@ -16,5 +16,7 @@ namespace TLMSData.Interfacing
 
         Task<ProductionInformation> GetProductionInformation(DateTime startTime, DateTime endTime);
 
+        Task<ProductionInformation> GetProductionInformationbyLine(string line, DateTime startTime, DateTime endTime);
+
     }
 }
