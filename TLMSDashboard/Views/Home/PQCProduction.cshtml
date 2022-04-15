@@ -14,13 +14,14 @@
     var productionLineData = productionInformation.productionLines;
 </script>
 <main class="reloadable">
-    <h4 id="reload-countdown" class="text-right mb-4"></h4>
-   <div class="row mb-4">
+    <h5 id="current-date" class="text-right"></h5>
+    <h5 id="reload-countdown" class="text-right mb-4 mt-2"></h5>
+    <div class="row mb-4">
 
-       <div class="col-7">
-           <form class="autosubit-form">
-               <div class="form-inline">
-                   <label for="line" class="mb-2 mr-sm-2">Line selected:</label>
+        <div class="col-7">
+            <form class="autosubit-form">
+                <div class="form-inline">
+                    <label for="line" class="mb-2 mr-sm-2">Line selected:</label>
                     <select class="form-control mb-2 mr-sm-2 form-control-lg" name="Line" id="linesummary" onchange="this.form.submit()">
                         <option value="ALL" selected="@(LineRequest.Equals("ALL"))">All</option>
                         <option value="L01" selected="@(LineRequest.Equals("L01"))">L01</option>
@@ -34,10 +35,12 @@
                         <option value="L09" selected="@(LineRequest.Equals("L09"))">L09</option>
                         <option value="L10" selected="@(LineRequest.Equals("L10"))">L10</option>
                     </select>
-               </div>
-           </form>
-       </div>
-   </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-5">
+        </div>
+    </div>
 
     <div class="jumbotron pcq-header" style="width: 100%; padding: 2rem 1rem">
         <h5 class="display-4">PQC production line dashboard</h5>
@@ -129,10 +132,9 @@
 
     </div>
 
-    <script>
-        (function ($) {
+    <script>(function ($) {
             $(document).ready(function () {
-             
+
 
                 productionLineData.forEach(function (productionLine) {
                     const data = {
@@ -175,10 +177,9 @@
                     const query = `line-chart-${productionLine.Line}-${productionLine.Product}`;
                     new Chart(document.getElementById(query), config)
                 })
-                
-             })
-        })(jQuery)
-    </script>
+
+            })
+        })(jQuery)</script>
 
 
     <div>
@@ -187,8 +188,7 @@
     </div>
 
 
-    <script>
-        (function ($) {
+    <script>(function ($) {
             // MODAL CHART
 
             $(document).ready(function () {
@@ -259,6 +259,5 @@
                 );
             });
 
-        })(jQuery);
-    </script>
+        })(jQuery);</script>
 </main>

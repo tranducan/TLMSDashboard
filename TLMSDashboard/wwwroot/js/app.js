@@ -24,6 +24,12 @@ var incorrectFlag = false;
 
     $(document).ready(function () {
 
+        var $currDate = $("#current-date");
+        if ($currDate.length > 0) {
+            var date = new Date();
+            $currDate.text(`Date: ${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`);
+        }
+
         $('input[name="daterange"]').daterangepicker();
         $('.pass_show').append('<span class="ptxt">Show</span>');
 
@@ -177,7 +183,7 @@ var incorrectFlag = false;
 
                 //document.getElementById("demo").innerHTML =
                 if (minutes >= 0 || seconds >= 0) {
-                    $("#reload-countdown").text(`Reload page after: ${minutes} minutes ${seconds} seconds`)
+                    $("#reload-countdown").text(`Reload after: ${minutes} minutes ${seconds} seconds`)
                 } 
                 
 
@@ -217,6 +223,8 @@ var incorrectFlag = false;
                     mapBody.append(el);
                 })
             }
+
+
 
         }
 
