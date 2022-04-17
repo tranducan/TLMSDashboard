@@ -20,6 +20,7 @@ namespace TLMSDashboard.Controllers
         private readonly IConfiguration _config;
         private IGetPQCData getPQCData;
         private DateTime setTimeStart = DateTime.MinValue;
+        private DateTime setTimeEnd= DateTime.MinValue;
 
         public HomeController(
             ILogger<HomeController> logger,
@@ -31,17 +32,34 @@ namespace TLMSDashboard.Controllers
             getPQCData = new GetPQCData(context);
             if (Parameters.SetStaticValue.isDevEnvironment)
             {
-                DateTime setStartDate = configuration.GetValue<DateTime>("StartTime:Date");
-                int setHour = configuration.GetValue<int>("StartTime:Hour");
-                int setMinute = configuration.GetValue<int>("StartTime:Minute");
+                DateTime setStartDate = configuration.GetValue<DateTime>("2019-01-01");
+                int setHour = configuration.GetValue<int>("StartShift:Hour");
+                int setMinute = configuration.GetValue<int>("StartShift:Minute");
                 setTimeStart = setStartDate.AddHours(setHour).AddMinutes(setMinute);
+                setTimeEnd = DateTime.Now;
             }
             else
             {
-                DateTime setStartDate = DateTime.Now.Date;
-                int setHour = configuration.GetValue<int>("StartTime:Hour");
-                int setMinute = configuration.GetValue<int>("StartTime:Minute");
-                setTimeStart = setStartDate.AddHours(setHour).AddMinutes(setMinute);
+                int setStartHour = configuration.GetValue<int>("StartShift:Hour");
+                int setEndHour = configuration.GetValue<int>("EndShift:Hour");
+                if (DateTime.Now.Hour >= setStartHour && DateTime.Now.Hour < setEndHour)
+                {
+                    setTimeStart = DateTime.Now.Date.AddHours(setStartHour);
+                    setTimeEnd = DateTime.Now.Date.AddHours(setEndHour);
+                }
+                else
+                {
+                    if (DateTime.Now.Hour >= setEndHour)
+                    {
+                        setTimeStart = DateTime.Now.Date.AddHours(setEndHour);
+                        setTimeEnd = DateTime.Now.Date.AddDays(1).AddHours(setStartHour);
+                    }
+                    else
+                    {
+                        setTimeStart = DateTime.Now.Date.AddDays(-1).AddHours(setEndHour);
+                        setTimeEnd = DateTime.Now.Date.AddHours(setStartHour);
+                    }
+                }
             }
         }
 
@@ -53,7 +71,7 @@ namespace TLMSDashboard.Controllers
         public IActionResult Models()
         {
             DateTime dateTimeStart = setTimeStart;
-            DateTime dateTimeEnd = DateTime.Now;
+            DateTime dateTimeEnd = setTimeEnd;
             var result = getPQCData.GetProductionLines(dateTimeStart, dateTimeEnd)?.Result;
 
             return View(result);
@@ -62,7 +80,7 @@ namespace TLMSDashboard.Controllers
         public IActionResult PQCMaster()
         {
             DateTime dateTimeStart = setTimeStart;
-            DateTime dateTimeEnd = DateTime.Now;
+            DateTime dateTimeEnd = setTimeEnd;
 
             var result = getPQCData.GetProductionInformation(dateTimeStart, dateTimeEnd)?.Result;
 
@@ -72,7 +90,7 @@ namespace TLMSDashboard.Controllers
         public IActionResult PQCProduction(string line)
         {
             DateTime dateTimeStart = setTimeStart;
-            DateTime dateTimeEnd = DateTime.Now;
+            DateTime dateTimeEnd = setTimeEnd;
             if (line is null)
             {
                 return View(new TLMSData.Models.ProductionInformation());
@@ -100,7 +118,7 @@ namespace TLMSDashboard.Controllers
             }
 
             DateTime dateTimeStart = setTimeStart;
-            DateTime dateTimeEnd = DateTime.Now;
+            DateTime dateTimeEnd = setTimeEnd;
             var result = getPQCData.GetProductionRealtimes(line, dateTimeStart, dateTimeEnd)?.Result;
 
             return View(result);
