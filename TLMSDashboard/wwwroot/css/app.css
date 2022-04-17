@@ -562,4 +562,23 @@ border-top-right-radius: 0;
 
 .pass_show .ptxt:hover {
     color: #7486d5;
-} 
+}
+
+@keyframes bounch-show {
+    from {
+        opacity: 1
+    }
+    to {
+        opacity: 0
+    }
+}
+.pqc-line-quality h3 {
+    animation-name: bounch-show;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-out;
+    animation-delay: 1s
+}
+.pqc-single-line .sumary-item {
+    font-size: 42px;
+}

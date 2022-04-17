@@ -15,7 +15,8 @@
     var productionLineData = productionInformation.productionLines;
 </script>
 <main class="reloadable">
-    <h4 id="reload-countdown" class="text-right mb-4"></h4>
+    <h5 id="current-date" class="text-right"></h5>
+    <h5 id="reload-countdown" class="text-right mb-4 mt-2"></h5>
 
     <div class="jumbotron pcq-header" style="width: 100%; padding: 2rem 1rem">
         <h5 class="display-4">PQC production line dashboard</h5>
@@ -42,22 +43,22 @@
                 var PercentNotPassWithPass = Math.Round((decimal)NotPass / (NotPass + Pass) * 100);
                 var ProductionRunning = productionline.InspectEnd - productionline.InspectStart;
 
-                <a href="Activities?line=@productionline.Line" class="col-sm-4 pqc-line">
+                <a href="PQCLine?Line=@productionline.Line" class="col-sm-4 pqc-line">
                     <div class="card border-0 shadow p-3 mb-5 bg-white roundeds">
                         <div class="pqc-line-head">
                             <h3>@productionline.Line</h3>
                         </div>
                         <div class="pqc-line-model">
                             @{
-                                if(productionline.Status == TLMSData.Models.ProductionStatus.NotSetTarget)
+                                if (productionline.Status == TLMSData.Models.ProductionStatus.NotSetTarget)
                                 {
-                                    <p class = "text-warning">@productionline.Product (Not set Target) </p>
+                                    <p class="text-warning">@productionline.Product (Not set Target) </p>
                                 }
                                 else
                                 {
-                                     <p class = "text-success">@productionline.Product </p>
+                                    <p class="text-success">@productionline.Product </p>
                                 }
-                        }
+                            }
                         </div>
                         <div class="pqc-line-sumary">
                             <div class="row align-items-center">
@@ -94,17 +95,17 @@
 
                         <div class="pqc-line-quality">
                             @{
-                                if(productionline.Status == TLMSData.Models.ProductionStatus.HighDefect)
+                                if (productionline.Status == TLMSData.Models.ProductionStatus.HighDefect)
                                 {
-                                    <h3 class= "text-danger">Defect Rate: @Math.Round(productionline.DefectRate,2).ToString() (%) </h3>
+                                    <h3 class="text-danger">Defect Rate: @Math.Round(productionline.DefectRate, 2).ToString() (%) </h3>
                                 }
-                                else if(productionline.Status == TLMSData.Models.ProductionStatus.HighRework)
+                                else if (productionline.Status == TLMSData.Models.ProductionStatus.HighRework)
                                 {
-                                    <h3 class= "text-warning">Rework Rate: @Math.Round(productionline.ReworkRate,2).ToString() (%) </h3>
+                                    <h3 class="text-warning">Rework Rate: @Math.Round(productionline.ReworkRate, 2).ToString() (%) </h3>
                                 }
                                 else
                                 {
-                                    <h3 class= "text-success">Output Rate: @Math.Round(productionline.OutputRate,2).ToString() (%) </h3>
+                                    <h3 class="text-success">Output Rate: @Math.Round(productionline.OutputRate, 2).ToString() (%) </h3>
                                 }
                             }
                             <div class="d-flex justify-content-between">
@@ -129,10 +130,9 @@
 
     </div>
 
-    <script>
-        (function ($) {
+    <script>(function ($) {
             $(document).ready(function () {
-             
+
 
                 productionLineData.forEach(function (productionLine) {
                     const data = {
@@ -175,10 +175,9 @@
                     const query = `line-chart-${productionLine.Line}-${productionLine.Product}`;
                     new Chart(document.getElementById(query), config)
                 })
-                
-             })
-        })(jQuery)
-    </script>
+
+            })
+        })(jQuery)</script>
 
 
     <div>
@@ -187,8 +186,7 @@
     </div>
 
 
-    <script>
-        (function ($) {
+    <script>(function ($) {
             // MODAL CHART
 
             $(document).ready(function () {
@@ -259,6 +257,5 @@
                 );
             });
 
-        })(jQuery);
-    </script>
+        })(jQuery);</script>
 </main>
