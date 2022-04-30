@@ -52,7 +52,7 @@
                             @{
                                 if (productionline.Status == TLMSData.Models.ProductionStatus.NotSetTarget)
                                 {
-                                    <p class="text-warning">@productionline.Product (Not set Target) </p>
+                                    <p class="text-warning blink-animation">@productionline.Product (Not set Target) </p>
                                 }
                                 else
                                 {
@@ -97,11 +97,11 @@
                             @{
                                 if (productionline.Status == TLMSData.Models.ProductionStatus.HighDefect)
                                 {
-                                    <h3 class="text-danger">Defect Rate: @Math.Round(productionline.DefectRate, 2).ToString() (%) </h3>
+                                    <h3 class="text-danger blink-animation">Defect Rate: @Math.Round(productionline.DefectRate, 2).ToString() (%) </h3>
                                 }
                                 else if (productionline.Status == TLMSData.Models.ProductionStatus.HighRework)
                                 {
-                                    <h3 class="text-warning">Rework Rate: @Math.Round(productionline.ReworkRate, 2).ToString() (%) </h3>
+                                    <h3 class="text-warning blink-animation">Rework Rate: @Math.Round(productionline.ReworkRate, 2).ToString() (%) </h3>
                                 }
                                 else
                                 {
